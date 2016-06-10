@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>建立Azure上海與香港資料中心Site to Site VPN | E.K 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Azure" />
+    
+    <meta name="description" content="如果有同時使用China Azure和Global Azure，遇到最麻煩的事情，就是怎樣把兩邊的資料做整合，一方面是兩邊的Azure功能性不一致，另一方面是因為中國長城關係，導致資料Sync不能透過一般HTTP解決，因此，為了解決這問題，只好建立一組Site to Site的VPN，解決雙方的Azure資料中心的溝通問題
+
+先自行規劃上海資料中心和香港資料中心的網路IP分配12* 上海資料中心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立Azure上海與香港資料中心Site to Site VPN">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/02/Azure/2016-06-10-1/index.html">
+<meta property="og:site_name" content="E.K 2.0">
+<meta property="og:description" content="如果有同時使用China Azure和Global Azure，遇到最麻煩的事情，就是怎樣把兩邊的資料做整合，一方面是兩邊的Azure功能性不一致，另一方面是因為中國長城關係，導致資料Sync不能透過一般HTTP解決，因此，為了解決這問題，只好建立一組Site to Site的VPN，解決雙方的Azure資料中心的溝通問題
+
+先自行規劃上海資料中心和香港資料中心的網路IP分配12* 上海資料中心">
+<meta property="og:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<meta property="og:updated_time" content="2016-06-10T14:33:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="建立Azure上海與香港資料中心Site to Site VPN">
+<meta name="twitter:description" content="如果有同時使用China Azure和Global Azure，遇到最麻煩的事情，就是怎樣把兩邊的資料做整合，一方面是兩邊的Azure功能性不一致，另一方面是因為中國長城關係，導致資料Sync不能透過一般HTTP解決，因此，為了解決這問題，只好建立一組Site to Site的VPN，解決雙方的Azure資料中心的溝通問題
+
+先自行規劃上海資料中心和香港資料中心的網路IP分配12* 上海資料中心">
+<meta name="twitter:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-33121513-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Product Owner &amp; Coach &amp; Developer 混合體</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/sublime/Sublime.html">Sublime</a>
+                                </li>
+                            
+                                        
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-Azure/2016-06-10-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        建立Azure上海與香港資料中心Site to Site VPN
+        </h1>
+    
+
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/paper/2016/06/02/Azure/2016-06-10-1/" class="article-date">
+    <time datetime="2016-06-02T14:59:31.000Z" itemprop="datePublished">2016-06-02</time>
+</a>
+            
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure/">Azure</a></li></ul>
+
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <img src="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<p>如果有同時使用<strong>China Azure</strong>和<strong>Global Azure</strong>，遇到最麻煩的事情，就是怎樣把兩邊的資料做整合，一方面是兩邊的Azure功能性不一致，另一方面是因為<strong>中國長城</strong>關係，導致資料Sync不能透過一般HTTP解決，因此，為了解決這問題，只好建立一組Site to Site的VPN，解決雙方的Azure資料中心的溝通問題</p>
+<hr>
+<p>先自行規劃上海資料中心和香港資料中心的網路IP分配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* 上海資料中心：10.1.0.0 /16，名稱：CN-NET</span><br><span class="line">* 香港資料中心：10.2.0.0 /16，名稱：HK-NET</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>開始設定Azure的虛擬網路吧，先設定CN-NET這部分 <img src="/blogimage/14653996914222.png" width="500"></li>
+<li>虛擬網路名稱取名為CN-NET <img src="/blogimage/14653999318389.png" width="500"></li>
+<li>這邊選 <strong>設定網站間VPN</strong> <img src="/blogimage/14654000414393.png" width="500">
+設定香港資料中心的虛擬網路資訊，名稱設定為HK-NET，名稱後續要跟設定香港資料中心的名稱一樣，位置空間的IP就設定<code>IP:10.2.0.0 /16</code></li>
+<li>VPN裝置的IP位址，可以先隨便設定一個，後面會改掉，但是，設定的IP不可以跟你後續香港或是上海資料中內的位址IP有重複，不然會發生錯誤<img src="/blogimage/14654000957827.png" width="500"></li>
+<li>設定上海資料中心的虛擬網路的IP<code>10.1.0.0 /16</code>，然後再設定Subnet IP <code>10.1.1.0 /29</code>，按下確定就可以<img src="/blogimage/14654001115661.png" width="500"></li>
+<li>上海資料中心設定完成後，再來設定香港資料中心，幾乎步驟都相同，只有在設定的地方不一樣<img src="/blogimage/14654001304530.png" width="400"></li>
+<li>這邊依舊選 <strong>設定網站間VPN</strong><img src="/blogimage/14654001492649.png" width="500"></li>
+<li>改設定上海資料中心的虛擬網路資訊，所以名稱設定為CN-NET，位址IP<code>10.1.0.0 /16</code>，這邊的VPN IP位址，也可以先隨便設定一個，同樣的不可以跟你後續香港或是上海資料中內的位址重複，不然會出現錯誤<img src="/blogimage/14654001612190.png" width="500"></li>
+<li><p>設定香港資料中心的虛擬網路的IP<code>10.2.0.0 /16</code>，在設定Subnet IP <code>10.2.1.0 /29</code>，按下確定就可以設定完成</p>
+<img src="/blogimage/14654001815324.png" width="500">
+<p> 兩邊資料中心都設定完成後，在兩邊設定畫面中，就會出現VNET組態檔，這時候我們要把這組態檔匯出來</p>
+<img src="/blogimage/14654001942694.png" width="300">
+<p> 下載出來的組態檔內容如下，我們後續會修改組態檔中的 <strong>VPNGatewayaddress</strong> 的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&lt;NetworkConfiguration xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://schemas.microsoft.com/ServiceHosting/2011/07/NetworkConfiguration&quot;&gt;</span><br><span class="line">  &lt;VirtualNetworkConfiguration&gt;</span><br><span class="line">    &lt;Dns /&gt;</span><br><span class="line">    &lt;LocalNetworkSites&gt;</span><br><span class="line">      &lt;LocalNetworkSite name=&quot;HK-NET&quot;&gt;</span><br><span class="line">        &lt;AddressSpace&gt;</span><br><span class="line">          &lt;AddressPrefix&gt;10.2.0.0/16&lt;/AddressPrefix&gt;</span><br><span class="line">        &lt;/AddressSpace&gt;</span><br><span class="line">        &lt;VPNGatewayAddress&gt;2.2.2.2&lt;/VPNGatewayAddress&gt;</span><br><span class="line">      &lt;/LocalNetworkSite&gt;</span><br><span class="line">      &lt;LocalNetworkSite name=&quot;v-net-west&quot;&gt;</span><br><span class="line">        &lt;AddressSpace&gt;</span><br><span class="line">          &lt;AddressPrefix&gt;10.200.0.0/16&lt;/AddressPrefix&gt;</span><br><span class="line">        &lt;/AddressSpace&gt;</span><br><span class="line">        &lt;VPNGatewayAddress&gt;23.99.112.76&lt;/VPNGatewayAddress&gt;</span><br><span class="line">      &lt;/LocalNetworkSite&gt;</span><br><span class="line">    &lt;/LocalNetworkSites&gt;</span><br><span class="line">    &lt;VirtualNetworkSites&gt;</span><br><span class="line">      &lt;VirtualNetworkSite name=&quot;CN-NET&quot; Location=&quot;China East&quot;&gt;</span><br><span class="line">        &lt;AddressSpace&gt;</span><br><span class="line">          &lt;AddressPrefix&gt;10.1.0.0/16&lt;/AddressPrefix&gt;</span><br><span class="line">        &lt;/AddressSpace&gt;</span><br><span class="line">        &lt;Subnets&gt;</span><br><span class="line">          &lt;Subnet name=&quot;Subnet-1&quot;&gt;</span><br><span class="line">            &lt;AddressPrefix&gt;10.1.0.0/24&lt;/AddressPrefix&gt;</span><br><span class="line">          &lt;/Subnet&gt;</span><br><span class="line">          &lt;Subnet name=&quot;GatewaySubnet&quot;&gt;</span><br><span class="line">            &lt;AddressPrefix&gt;10.1.1.0/29&lt;/AddressPrefix&gt;</span><br><span class="line">          &lt;/Subnet&gt;</span><br><span class="line">        &lt;/Subnets&gt;</span><br><span class="line">        &lt;Gateway&gt;</span><br><span class="line">          &lt;ConnectionsToLocalNetwork&gt;</span><br><span class="line">            &lt;LocalNetworkSiteRef name=&quot;HK-NET&quot;&gt;</span><br><span class="line">              &lt;Connection type=&quot;IPsec&quot; /&gt;</span><br><span class="line">            &lt;/LocalNetworkSiteRef&gt;</span><br><span class="line">          &lt;/ConnectionsToLocalNetwork&gt;</span><br><span class="line">        &lt;/Gateway&gt;</span><br><span class="line">      &lt;/VirtualNetworkSite&gt;</span><br><span class="line">      &lt;VirtualNetworkSite name=&quot;v-net-china&quot; Location=&quot;China East&quot;&gt;</span><br><span class="line">        &lt;AddressSpace&gt;</span><br><span class="line">          &lt;AddressPrefix&gt;10.100.0.0/16&lt;/AddressPrefix&gt;</span><br><span class="line">        &lt;/AddressSpace&gt;</span><br><span class="line">        &lt;Subnets&gt;</span><br><span class="line">          &lt;Subnet name=&quot;Subnet-1&quot;&gt;</span><br><span class="line">            &lt;AddressPrefix&gt;10.100.0.0/24&lt;/AddressPrefix&gt;</span><br><span class="line">          &lt;/Subnet&gt;</span><br><span class="line">          &lt;Subnet name=&quot;GatewaySubnet&quot;&gt;</span><br><span class="line">            &lt;AddressPrefix&gt;10.100.1.0/29&lt;/AddressPrefix&gt;</span><br><span class="line">          &lt;/Subnet&gt;</span><br><span class="line">        &lt;/Subnets&gt;</span><br><span class="line">        &lt;Gateway&gt;</span><br><span class="line">          &lt;ConnectionsToLocalNetwork&gt;</span><br><span class="line">            &lt;LocalNetworkSiteRef name=&quot;v-net-west&quot;&gt;</span><br><span class="line">              &lt;Connection type=&quot;IPsec&quot; /&gt;</span><br><span class="line">            &lt;/LocalNetworkSiteRef&gt;</span><br><span class="line">          &lt;/ConnectionsToLocalNetwork&gt;</span><br><span class="line">        &lt;/Gateway&gt;</span><br><span class="line">      &lt;/VirtualNetworkSite&gt;</span><br><span class="line">    &lt;/VirtualNetworkSites&gt;</span><br><span class="line">  &lt;/VirtualNetworkConfiguration&gt;</span><br><span class="line">&lt;/NetworkConfiguration&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在兩處的Azure虛擬網路部分，建立閘道，選定 <strong>動態路由</strong></p>
+<img src="/blogimage/14654002638395.png" width="300"></li>
+<li>建立閘道時間會比較長，可能要20多分鐘以上，路由建立好後，會出現下面樣子<img src="/blogimage/14654002816194.png" width="300">
+再回到剛剛的組態檔案，從CN-NET得到的閘道IP，修改從HK-NET下載的組態檔中的<strong>VPNgetwayaddress</strong>的值，然後再到香港資料中心取得其閘道IP，再將這閘道IP，取代從CN-NET下載的組態檔案中的<strong>VPNgetwayaddress</strong>的值<img src="/blogimage/14654002991514.png" width="400"></li>
+<li>都設定好之後，分別上傳組態檔案，上海組態檔上傳到上海資料中心，香港組態檔上傳到香港資料中心<img src="/blogimage/14654003300096.png" width="400"></li>
+<li>上面會顯示有被更新的資訊，直接確認就可以<img src="/blogimage/14654003502434.png" width="400">
+</li>
+</ol>
+<p>到了這一步，基本上在介面上的設定都完畢，剩下就必須透過Powershell去把這兩邊的資料中心連線串接起來</p>
+<hr>
+<ol>
+<li><p>首先先設定上海資料中心部分，使用Powershell去取得中國的Azure帳號，其指令是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add-AzureAccount -Environment AzureChinaCloud</span><br></pre></td></tr></table></figure>
+<p> 登入後，使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select-AzureSubscription -SubscriptionId &quot;訂閱號碼“</span><br></pre></td></tr></table></figure>
+<p> 選定我們的訂閱戶，開始配置兩邊的共享金鑰，金鑰名稱可以自行輸入，但是，兩邊資料中心的金鑰要使用一樣，如果在上海資料中心，設定的VNetName就是<code>CN-Net</code>，LocalNetworkSiteName就是<code>hk-Net</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-AzureVNetGatewaykey -VNetName CN-NET -LocalNetworkSiteName HK-NET –SharedKey 金鑰</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<img src="/blogimage/14654005132788.png" width="500">
+<ol>
+<li><p>設定香港的資料中心</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-AzureVNetGatewaykey -VNetName HK-NET -LocalNetworkSiteName CN-NET –SharedKey 金鑰</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>兩邊都設定成功後，請再等待幾分鐘，就可以看到這兩邊的VNET串接起來了</p>
+<img src="/blogimage/14654005765227.png" width="500"></li>
+<li>如果不確定，也可以透過Powershell指令去查看<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-AzureVnetConnection –VnetName HK-NET</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<img src="/blogimage/14654006023615.png" width="500">
+<p>這樣中國與Global兩邊資料中心的虛擬網路就串起來了，最後提醒一下，是設定Site to Site，而不是Point to Site VPN唷</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/Chia_Chi_Kuo" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/jaigi.kuo" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/edwardkuo" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/paper/2016/06/06/Azure/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Azure Web App Inbound IP和Outbound IP的不同
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10-2/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="C# 無條件進位,無條件捨去及四捨五入寫法" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10-2/" class="title">C# 無條件進位,無條件捨去及四捨五入寫法</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10-1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="C# 使用For和Foreach讀取Datatable每筆資料對照寫法" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10-1/" class="title">C# 使用For和Foreach讀取Datatable每筆資料對照寫法</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="使用Linq的Join / right Join / Left Join" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10/" class="title">使用Linq的Join / right Join / Left Join</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/SQL/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.srcinc.com/images/eha-headers-databases.jpg)" alt="T-SQL 時間欄位的格式化(用Convert / Cast作法)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/SQL/2016-06-10/" class="title">T-SQL 時間欄位的格式化(用Convert / Cast作法)</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/09/Web/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://moztw.org/events/code-rush/images/ani-code-rush.gif)" alt="ASP.NET 強制設定開啟或是關閉相容性檢視" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/09/Web/2016-06-10/" class="title">ASP.NET 強制設定開啟或是關閉相容性檢視</a></p>
+                            <p class="item-date"><time datetime="2016-06-09T14:59:31.000Z" itemprop="datePublished">2016-06-09</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET/">ASP.NET</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure/">Azure</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/T-SQL/">T-SQL</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/ASP-NET/" style="font-size: 10px;">ASP.NET</a> <a href="/tags/Azure/" style="font-size: 15px;">Azure</a> <a href="/tags/C/" style="font-size: 20px;">C#</a> <a href="/tags/T-SQL/" style="font-size: 10px;">T-SQL</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://dotblogs.com.tw/jaigi">E.K 點部落</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.study4.tw">Study4.TW</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.facebook.com/groups/286316594814216/">Azure &amp;.NET Developer FB 社團</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://mva.microsoft.com/?mtag=4040062">MVA</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://channel9.msdn.com">Channel9</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 Edward kuo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'ek20';
+    
+    
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/02/Azure/2016-06-10-1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

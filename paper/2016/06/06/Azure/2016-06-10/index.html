@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Azure Web App Inbound IP和Outbound IP的不同 | E.K 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Azure" />
+    
+    <meta name="description" content="Azure Web App有分為兩種類型的IP位址，一種是Inbound IP，一種是Outbound IP
+
+Inbound IP是所謂內部虛擬IP，一般你沒有綁定SSL憑證時，這個IP是與大家分享的
+Outbound IP是對外的實體IP，這個IP取決於資料中心的配置，通常是四個IP輪詢
+
+Inbound ＆ Outbound最簡單識別方式就是 A Web Site Call B Web S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure Web App Inbound IP和Outbound IP的不同">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/06/Azure/2016-06-10/index.html">
+<meta property="og:site_name" content="E.K 2.0">
+<meta property="og:description" content="Azure Web App有分為兩種類型的IP位址，一種是Inbound IP，一種是Outbound IP
+
+Inbound IP是所謂內部虛擬IP，一般你沒有綁定SSL憑證時，這個IP是與大家分享的
+Outbound IP是對外的實體IP，這個IP取決於資料中心的配置，通常是四個IP輪詢
+
+Inbound ＆ Outbound最簡單識別方式就是 A Web Site Call B Web S">
+<meta property="og:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<meta property="og:updated_time" content="2016-06-10T14:32:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Azure Web App Inbound IP和Outbound IP的不同">
+<meta name="twitter:description" content="Azure Web App有分為兩種類型的IP位址，一種是Inbound IP，一種是Outbound IP
+
+Inbound IP是所謂內部虛擬IP，一般你沒有綁定SSL憑證時，這個IP是與大家分享的
+Outbound IP是對外的實體IP，這個IP取決於資料中心的配置，通常是四個IP輪詢
+
+Inbound ＆ Outbound最簡單識別方式就是 A Web Site Call B Web S">
+<meta name="twitter:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-33121513-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Product Owner &amp; Coach &amp; Developer 混合體</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/sublime/Sublime.html">Sublime</a>
+                                </li>
+                            
+                                        
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-Azure/2016-06-10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Azure Web App Inbound IP和Outbound IP的不同
+        </h1>
+    
+
+            </header>
+        
+        <div class="article-subtitle">
+            <a href="/paper/2016/06/06/Azure/2016-06-10/" class="article-date">
+    <time datetime="2016-06-06T12:09:34.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+            
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure/">Azure</a></li></ul>
+
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <img src="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<p>Azure Web App有分為兩種類型的IP位址，一種是<strong>Inbound IP</strong>，一種是<strong>Outbound IP</strong></p>
+<ul>
+<li>Inbound IP是所謂內部虛擬IP，一般你沒有綁定SSL憑證時，這個IP是與大家分享的</li>
+<li>Outbound IP是對外的實體IP，這個IP取決於資料中心的配置，通常是四個IP輪詢</li>
+</ul>
+<p>Inbound ＆ Outbound最簡單識別方式就是 <code>A Web Site</code> Call <code>B Web Site</code> 時，在B Web Site看到呼叫端的A Web Site IP就是屬於A Web Site的Outbound IP，B Web Site則是用Inbound接收A Web Site的Request</p>
+<p>通常我們是不需要去管Web Site Outbound IP，不過，在某些情境下為了去設定防火牆，讓我們的Azure Web App能呼叫企業內部的服務或是網站，就必須去知道Web Site Outbound IP，才有辦法設定防火牆通過</p>
+<p><a href="https://social.msdn.microsoft.com/forums/azure/en-US/fd53afb7-14b8-41ca-bfcb-305bdeea413e/maintenance-notice-upcoming-changes-to-increase-capacity-for-outbound-network-calls" target="_blank" rel="external">outbound IP List</a>列出所有Azure資料中心的Outbound IP，不過，為了以防萬一這些資訊有所變更不在這列表中，還可以用另一種方式去找到Outbound IP，就是到Azure Portal中的Web App內去找</p>
+<ol>
+<li>先找到該Web App，然後到它的屬性內的Outbound IP<img src="https://lh3.googleusercontent.com/-c6pkxekRCSg/V1lx-E9O5NI/AAAAAAAAIH0/XZR7y4JxGk0/I/14654751046097.png" width="500"></li>
+<li>就可以查看這Web Site的Outbound IP，通常是都會配四組Outbound IP給這個Web Site<img src="https://lh3.googleusercontent.com/-V0iZEqA2TkI/V1lx-eOY-oI/AAAAAAAAIH8/NvBUnV1pEU0/I/14654790571477.png" width="400">
+</li>
+</ol>
+<hr>
+<p>如果不想要透過這種方式去查詢Outbound IP，也可以使用<strong>Azure Resource Explorer</strong>這個工具去查詢，Azure Resource Explorer的網址<a href="https://resources.azure.com" target="_blank" rel="external">https://resources.azure.com</a>，它是一個可以發現Azure服務API的一個Web工具，雖然並非所有Azure服務都有支援，使用ARE好處如下：</p>
+<ul>
+<li>取得Azure 服務的API</li>
+<li>取得API相關資訊</li>
+<li>可以直接使用上面API，更新你服務的設定<img src="https://lh3.googleusercontent.com/-kCLm83Mh4Og/V1lx-oBHpII/AAAAAAAAIIE/5kjaTlfG09E/I/14654792940089.png" width="500">
+</li>
+</ul>
+<p>這個工具目前尚在Preview階段，所以，部分功能還不完整。以目前要查<strong>Outbound IP</strong>為例，只要去找到你所屬的Web Site名稱，就可以在旁邊的Json資訊中找到<strong>outboundIpAddresses</strong> Key，然後就可以發現此Web Site的Outbound IP List<br><img src="https://lh3.googleusercontent.com/-RNSQgQNU1tA/V1lx-w2J2BI/AAAAAAAAIIM/VA-nCX0v6wU/I/14654794006301.png" width="500"><br>如果，有用中國Azure的人，目前此工具還不支援，再加上又沒有新的Portal可以支援查詢，因此，列出北京與上海資料中心的Outbound IP給有需要的人</p>
+<ul>
+<li>Scale Unit Name: BJB-001 （北京資料中心）<ul>
+<li>Outbound IP Addresses<ul>
+<li>42.159.4.73</li>
+<li>42.159.4.84</li>
+<li>42.159.4.211</li>
+<li>42.159.4.160</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Scale Unit Name: SHA-001 （上海資料中心）<ul>
+<li>Outbound IP Addresses<ul>
+<li>42.159.135.109</li>
+<li>42.159.135.174</li>
+<li>42.159.135.208</li>
+<li>42.159.133.172</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/Chia_Chi_Kuo" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/jaigi.kuo" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/edwardkuo" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/paper/2016/06/09/Web/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            ASP.NET 強制設定開啟或是關閉相容性檢視
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/paper/2016/06/02/Azure/2016-06-10-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">建立Azure上海與香港資料中心Site to Site VPN</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10-2/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="C# 無條件進位,無條件捨去及四捨五入寫法" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10-2/" class="title">C# 無條件進位,無條件捨去及四捨五入寫法</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10-1/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="C# 使用For和Foreach讀取Datatable每筆資料對照寫法" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10-1/" class="title">C# 使用For和Foreach讀取Datatable每筆資料對照寫法</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/Net/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg)" alt="使用Linq的Join / right Join / Left Join" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/Net/2016-06-10/" class="title">使用Linq的Join / right Join / Left Join</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/10/SQL/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://www.srcinc.com/images/eha-headers-databases.jpg)" alt="T-SQL 時間欄位的格式化(用Convert / Cast作法)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/10/SQL/2016-06-10/" class="title">T-SQL 時間欄位的格式化(用Convert / Cast作法)</a></p>
+                            <p class="item-date"><time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/paper/2016/06/09/Web/2016-06-10/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://moztw.org/events/code-rush/images/ani-code-rush.gif)" alt="ASP.NET 強制設定開啟或是關閉相容性檢視" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/paper/2016/06/09/Web/2016-06-10/" class="title">ASP.NET 強制設定開啟或是關閉相容性檢視</a></p>
+                            <p class="item-date"><time datetime="2016-06-09T14:59:31.000Z" itemprop="datePublished">2016-06-09</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET/">ASP.NET</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Azure/">Azure</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C#</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/T-SQL/">T-SQL</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/ASP-NET/" style="font-size: 10px;">ASP.NET</a> <a href="/tags/Azure/" style="font-size: 15px;">Azure</a> <a href="/tags/C/" style="font-size: 20px;">C#</a> <a href="/tags/T-SQL/" style="font-size: 10px;">T-SQL</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://dotblogs.com.tw/jaigi">E.K 點部落</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://www.study4.tw">Study4.TW</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.facebook.com/groups/286316594814216/">Azure &amp;.NET Developer FB 社團</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://mva.microsoft.com/?mtag=4040062">MVA</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://channel9.msdn.com">Channel9</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 Edward kuo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'ek20';
+    
+    
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/06/Azure/2016-06-10/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
