@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://edwardkuo.github.io/"/>
-  <updated>2016-06-10T14:30:37.000Z</updated>
+  <updated>2016-06-10T15:31:43.000Z</updated>
   <id>http://edwardkuo.github.io/</id>
   
   <author>
@@ -16,68 +16,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T14:30:37.000Z</updated>
+    <title>在MAC中的Visual Studio Code編譯ionic的Cordova專案</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/App/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/App/2016-06-10/</id>
+    <published>2016-06-10T15:59:31.000Z</published>
+    <updated>2016-06-10T15:31:43.000Z</updated>
     
-    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作，這東西真是好用且還歷久不衰，不過，到了開始有&lt;code&gt;Foreach&lt;/code&gt;之後，很多迴圈寫法都會改用&lt;code&gt;Foreach&lt;/code&gt;實作，畢竟，&lt;code&gt;Foreach&lt;/code&gt;算是好物之一。但是，因為長時間習慣用&lt;code&gt;for&lt;/code&gt;語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記&lt;/p&gt;
+    <content type="html">&lt;img src=&quot;http://innovation-village.com/wp-content/uploads/2015/04/mobile-app.jpg&quot;&gt;
+&lt;p&gt;在MAC 中用Visual Studio Code開發已經越來越稀鬆平常，實際上有些時候還是會有一些雷和步驟需要克服，畢竟，用Visual Studio Code在開發Cordova還是沒有比Visual Studio來的簡單，但是，其中最大好處就是可以快速使用iOS模擬器，不需要再去設定Remote MAC的一些設定&lt;/p&gt;
+&lt;p&gt;要在MAC啟動Visual Studio Code去編譯 Codova大概需要一些基礎設定才可以讓你的Cordova專案在MAC的Visual Studio啟動。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;採用&lt;code&gt;For&lt;/code&gt;迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;for (int i = 0; i &amp;lt; _dt.Rows.Count; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != _dt.Rows[i][&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (i != 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);          &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = _dt.Rows[i][&amp;quot;s&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = _dt.Rows[i][&amp;quot;ss&amp;quot;].ToString();     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;記得要安裝好&lt;code&gt;npm&lt;/code&gt;和&lt;code&gt;Nod.js&lt;/code&gt;套件，前者基本上因該都有內建在OSX裡面&lt;/li&gt;
+&lt;li&gt;在Visual Studio Code中安裝Cordova 編譯器&lt;img src=&quot;https://lh3.googleusercontent.com/-uCu06xi5tR8/V1rdDkGGa1I/AAAAAAAAIM0/rEZfk2xNgqg/I/14655724078771.jpg&quot; width=&quot;500&quot;&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;2.用&lt;code&gt;Foreach&lt;/code&gt;寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bool bFirst = false;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foreach (DataRow od in _dt.Rows)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != od[&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(!bFirst)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            bFirst = true;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = od[&amp;quot;s&amp;quot;].ToString();   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = od[&amp;quot;ss&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-fBt_MeaeMDw/V1rdD3K4D8I/AAAAAAAAIM8/45ykCAGaViM/I/14655724190276.jpg&quot; width=&quot;500&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Mac中安裝Cordova套件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo npm install -g cordova&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MAC安裝ionic 套件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo npm install -g ionic&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;有時候套件版本會影響使用ionic開發上的一些問題，所以我們可以透過指令看目前安裝的版本是多少，以及自己現在的Cordova版本也可以知道&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ionic info&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-jyrXJbTXvMg/V1rdECBWMRI/AAAAAAAAINE/IRBnWOb5PP0/I/14655725200080.jpg&quot; width=&quot;300&quot;&gt;
+&lt;p&gt;這時候看似美好，因該可以編譯Cordova和啟動模擬器，若是你的模擬器是採用&lt;strong&gt;Serve to the browser&lt;/strong&gt;這時候會出現下面錯錯誤訊&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[cordova-debug-adapter] Error: Serving to the browser is currently only supported ionic 1 project&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;要解決這問題，就必須升級你在MAC中的ionic套件，通常這會發生你在Visual Studio開發Cordova專案後，把這專案又拿到MAC的Visual Studio Code內使用造成，升級ionic套件必須先到此Cordova專案中的www目錄下，使用ionic update的指令:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ionic lib update&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;就可以解決這問題&lt;/p&gt;
+&lt;p&gt;在原本Cordova專案的www目錄下又會多出一個lib的目錄，以上都安裝好之後，預設會有ios模擬器，如果需要android device，請務必另外在安裝android device模擬器，才有辦法啟動了&lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作
+      &lt;img src=&quot;http://innovation-village.com/wp-content/uploads/2015/04/mobile-app.jpg&quot;&gt;
+&lt;p&gt;在MAC 中用Visual Studio Code開發已經越來越稀鬆平常，實際上有些時候還是會有一些雷和步
     
     </summary>
     
     
-      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 無條件進位,無條件捨去及四捨五入寫法</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T14:31:30.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;無條件進位&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Convert.ToInt16(Math.Ceiling(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;無條件捨去&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result =Convert.ToInt16( Math.Floor(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;四捨五入&lt;br&gt;使用&lt;code&gt;Math.Round&lt;/code&gt;， Math.Round(計算值,小數點第幾位)&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 110;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;double result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Math.Round((s / 3), 2);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;  若是要呈現一般認知的四捨五入需加入第三個參數，&lt;code&gt;MidpointRounding.AwayFromZer&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;System.Math.Round(1.235 , 2, MidpointRounding.AwayFromZero)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;參考來源：&lt;a href=&quot;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者
-    
-    </summary>
-    
-    
-      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+      <category term="Cordova" scheme="http://edwardkuo.github.io/tags/Cordova/"/>
     
   </entry>
   
@@ -136,6 +119,72 @@
   </entry>
   
   <entry>
+    <title>C# 無條件進位,無條件捨去及四捨五入寫法</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:31:30.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;無條件進位&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Convert.ToInt16(Math.Ceiling(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;無條件捨去&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result =Convert.ToInt16( Math.Floor(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;四捨五入&lt;br&gt;使用&lt;code&gt;Math.Round&lt;/code&gt;， Math.Round(計算值,小數點第幾位)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 110;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;double result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Math.Round((s / 3), 2);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  若是要呈現一般認知的四捨五入需加入第三個參數，&lt;code&gt;MidpointRounding.AwayFromZer&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;System.Math.Round(1.235 , 2, MidpointRounding.AwayFromZero)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;參考來源：&lt;a href=&quot;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:30:37.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作，這東西真是好用且還歷久不衰，不過，到了開始有&lt;code&gt;Foreach&lt;/code&gt;之後，很多迴圈寫法都會改用&lt;code&gt;Foreach&lt;/code&gt;實作，畢竟，&lt;code&gt;Foreach&lt;/code&gt;算是好物之一。但是，因為長時間習慣用&lt;code&gt;for&lt;/code&gt;語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;採用&lt;code&gt;For&lt;/code&gt;迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;for (int i = 0; i &amp;lt; _dt.Rows.Count; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != _dt.Rows[i][&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (i != 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);          &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = _dt.Rows[i][&amp;quot;s&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = _dt.Rows[i][&amp;quot;ss&amp;quot;].ToString();     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;2.用&lt;code&gt;Foreach&lt;/code&gt;寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bool bFirst = false;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foreach (DataRow od in _dt.Rows)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != od[&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(!bFirst)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            bFirst = true;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = od[&amp;quot;s&amp;quot;].ToString();   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = od[&amp;quot;ss&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>開始進行資料庫程式的版控和佈署</title>
     <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
@@ -177,11 +226,11 @@
     <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
     <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T15:13:34.000Z</updated>
+    <updated>2016-06-10T15:17:26.000Z</updated>
     
     <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
 &lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
-&lt;p&gt;一開始做法跟&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
+&lt;p&gt;一開始做法跟&lt;strong&gt;&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;&lt;/strong&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
 &lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
