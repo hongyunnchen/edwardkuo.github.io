@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>E.K 2.0</title>
+  <subtitle>Product Owner &amp; Coach &amp; Developer 混合體</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://edwardkuo.github.io/"/>
+  <updated>2016-06-10T14:30:37.000Z</updated>
+  <id>http://edwardkuo.github.io/</id>
+  
+  <author>
+    <name>Edward kuo</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:30:37.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作，這東西真是好用且還歷久不衰，不過，到了開始有&lt;code&gt;Foreach&lt;/code&gt;之後，很多迴圈寫法都會改用&lt;code&gt;Foreach&lt;/code&gt;實作，畢竟，&lt;code&gt;Foreach&lt;/code&gt;算是好物之一。但是，因為長時間習慣用&lt;code&gt;for&lt;/code&gt;語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;採用&lt;code&gt;For&lt;/code&gt;迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;for (int i = 0; i &amp;lt; _dt.Rows.Count; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != _dt.Rows[i][&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (i != 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);          &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = _dt.Rows[i][&amp;quot;s&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = _dt.Rows[i][&amp;quot;ss&amp;quot;].ToString();     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(_dt.Rows[i][&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;2.用&lt;code&gt;Foreach&lt;/code&gt;寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bool bFirst = false;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foreach (DataRow od in _dt.Rows)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (strReportID != od[&amp;quot;s&amp;quot;].ToString())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(!bFirst)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dt.Rows.Add(dr);                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb = new StringBuilder();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            dr = dt.NewRow();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            bFirst = true;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        strReportID = od[&amp;quot;s&amp;quot;].ToString();   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dr[&amp;quot;ss&amp;quot;] = od[&amp;quot;ss&amp;quot;].ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sb.Append(od[&amp;quot;Name&amp;quot;] + &amp;quot;&amp;lt;br /&amp;gt;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dr[&amp;quot;R&amp;quot;] = sb.ToString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dt.Rows.Add(dr);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;早期各種程式語法針對迴圈寫法，總是用&lt;code&gt;for&lt;/code&gt;來實作
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 無條件進位,無條件捨去及四捨五入寫法</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:31:30.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;無條件進位&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Convert.ToInt16(Math.Ceiling(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;無條件捨去&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 100;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result =Convert.ToInt16( Math.Floor(s / 3));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;四捨五入&lt;br&gt;使用&lt;code&gt;Math.Round&lt;/code&gt;， Math.Round(計算值,小數點第幾位)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;double s = 110;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;double result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result = Math.Round((s / 3), 2);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  若是要呈現一般認知的四捨五入需加入第三個參數，&lt;code&gt;MidpointRounding.AwayFromZer&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;System.Math.Round(1.235 , 2, MidpointRounding.AwayFromZero)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;參考來源：&lt;a href=&quot;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Linq的Join / right Join / Left Join</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:28:30.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;用Join來做資料聯集，在T-SQL指令是常會用到的一種語法，不過，對於常寫SQL語法的人要轉換到Linq語法時，往往對於Join這語句的操作就常會感到比較陌生也不習慣要怎樣使用。因此，這邊簡單說明一下，要如何操作Linq的join語法&lt;/p&gt;
+&lt;h5 id=&quot;資料表A&quot;&gt;&lt;a href=&quot;#資料表A&quot; class=&quot;headerlink&quot; title=&quot;資料表Ａ&quot;&gt;&lt;/a&gt;資料表Ａ&lt;/h5&gt;&lt;img src=&quot;/blogimage/14654857779687.png&quot;&gt;
+&lt;h5 id=&quot;資料表B&quot;&gt;&lt;a href=&quot;#資料表B&quot; class=&quot;headerlink&quot; title=&quot;資料表B&quot;&gt;&lt;/a&gt;資料表B&lt;/h5&gt;&lt;img src=&quot;/blogimage/14654857938174.png&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Join&lt;br&gt;先來做兩個資料的Join，把資料表B去顯示對應的資料表A的WeekName，Join是算是Linq比較簡單易懂的，其條件為透過資料表A的Week與資料表B的WeekSQL這兩個欄位相等之關係之資料集&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in Config_WeekMappings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.Week&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.WeekSQL&amp;#125; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ss.Week,WeekName=ss.WeekName,week=aa.Week&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  跟我們熟悉的SQL語法是相同的&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SELECT [t0].[Week] AS [WeekSQL], [t0].[WeekName]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FROM [Config_WeekMapping] AS [t0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INNER JOIN [S_Student_Curriculum] AS [t1] ON [t0].[Week] = [t1].[WeekSQL]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  若是要這Joine過程中去過濾一些資料呢?例如我只要取資料表A中的Week等於1的資料，其語法如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in Config_WeekMappings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.Week&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.WeekSQL&amp;#125; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;where ss.Week==1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ss.Week,WeekName=ss.WeekName&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  而除了一個過濾條件外，我們又想在資料表B中取出某一個學號且WeekSQL為1的資料，其語法如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in Config_WeekMappings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.Week&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.WeekSQL&amp;#125; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;where aa.S_Num==&amp;quot;S20142001&amp;quot; &amp;amp;&amp;amp; ss.Week==1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ss.Week,WeekName=ss.WeekName&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  這樣就可以採用兩個條件做篩選，且可以分別篩選出不同資料表的條件。因此，即使在Linq中也可以很輕鬆的透過這樣語法做過濾條件，Linq轉成SQL語句是跟我們再用SQL指令的方式是相同的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Right Join&lt;br&gt;使用Right Join在Linq中並無真正去區分Right Join或是Left Join的關鍵字。這一點跟SQL指令不太一樣，在SQL中還可以採用Right Join &amp;amp; Left Join去指定資料表的聯集方式。但是，在Linq這邊語法就沒有這樣直覺，Linq語法中都只有Join這指令而已，因此，先來講Right Join作法，後面再接著說Left Join，個人認為right Join比較需要換個方向思考才能與SQL相同&lt;/p&gt;
+&lt;p&gt;想要把資料表A去Right Join資料表B，其SQL語法可以這樣下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SELECT  [t0].[Week] AS [WeekSQL] ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [t0].[WeekName] ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        t1.Week&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FROM    [dbo].[Config_WeekMapping] [t0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        RIGHT JOIN ( SELECT WeekSQL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                            Week&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     FROM   [dbo].[S_Student_Curriculum]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                   ) t1 ON t0.Week = t1.WeekSQL&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在Linq並無Right Join語法，因此，我做法則是把資料表兩個做對調，其意義為用資料表B去Left Join資料表A，這樣就可以達到資料表A做Right Join資料表B的功能，其與法如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in Config_WeekMappings &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.WeekSQL&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.Week&amp;#125; into temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from ds in temp.DefaultIfEmpty()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ds.Week,WeekName=ds.WeekName,week=ss.Week&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;而當我們在Linq語法中，無論是right join或是left Join中，要取得第一個資料表&lt;strong&gt;S_Student_Curriculums&lt;/strong&gt;的欄位，直接使用上述的變數ss指向欄位即可，但是，若是要取得第二個資料表欄位&lt;strong&gt;Config_WeekMappings&lt;/strong&gt;，則不是直接取用變數aa對應欄位，而是必須使用temp這個變數去對映相關欄位才可以，因此，上面語法對照的SQL語法如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SELECT [t1].[Week] AS [WeekSQL], [t1].[WeekName] AS [WeekName], [t0].[Week] AS [week]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FROM [S_Student_Curriculum] AS [t0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LEFT OUTER JOIN [Config_WeekMapping] AS [t1] ON [t0].[WeekSQL] = [t1].[Week]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  若是這邊要做一些資料篩檢的話，就跟Join方式的是相同的概念，下面篩選案例與Join中的案例相同，其語句如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in Config_WeekMappings &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.WeekSQL&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.Week&amp;#125; into temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from ds in temp.DefaultIfEmpty()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;where ss.S_Num==&amp;quot;S20142001&amp;quot; &amp;amp;&amp;amp; ds.Week==3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ds.Week,WeekName=ds.WeekName,week=ss.Week&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Left Join&lt;br&gt;資料表A做left Join資料表B其語法如下，這部份跟right join是相同的，就把剛剛資料表B再與資料表A做對調即可&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from ss in Config_WeekMappings &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;join aa in  S_Student_Curriculums&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;on new &amp;#123; WeekID=ss.Week&amp;#125; equals&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;new &amp;#123;WeekID=aa.WeekSQL&amp;#125; into temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from ds in temp.DefaultIfEmpty()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select new &amp;#123; WeekSQL=ss.Week,WeekName=ss.WeekName,week=ds.Week&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;  當然這邊SQL語法也是跟right join是相同的，只有資料表對調而已 &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上就是針對Linq做Join系列的簡單作法，不過，上述案例只有針對一個條件做Join，也就是on A.XX=B.XX，若是要針對兩個欄位進行Join呢?只要針對下圖的紅框部分，依序加入欄位就可以。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;資料來源：&lt;a href=&quot;https://dotblogs.com.tw/blog/preview/eca79cfe-642e-4d3a-a93f-e8cc2e6e6455&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dotblogs.com.tw/blog/preview/eca79cfe-642e-4d3a-a93f-e8cc2e6e6455&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;用Join來做資料聯集，在T-SQL指令是常會用到的一種語法，不過，對於常
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>開始進行資料庫程式的版控和佈署</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T15:00:52.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就不會去做版控。針對這一部份，大都採用傳統方式，用複製的動作進行版控，久而久之就會開始遺失或是缺東缺西。早期要做資料庫物件版控其實也不容易，畢竟，DB是透過Script運作。自從VisualStudio有資料庫專案後，再加上資料庫更新與建制，可以透過.dacpac封裝方式進行部署與差異化更新，因此，要把資料庫納入版控就相對簡單許多。因此，可以開始嘗試使用DB資料庫專案進行開發&lt;/p&gt;
+&lt;p&gt;首先，在Visual Studio內找到SQL Server專案範本，透過這專案範本就可以建立資料庫專案了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-vfVKS97Jigc/V1rVBejSjQI/AAAAAAAAIK0/BMu90hbStfc/I/14655699882460.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;開啟資料庫專案後，就跟開發程式一樣簡單了，可以透過新增項目去開發資料庫的物件。若是，針對舊有的資料庫進行版控，就必須將資料庫匯入資料庫專案中，這樣後續才有辦法產生.dacpac檔案，設計完畢後，就可以透過Visual Stduio進行發行資料庫或是透過SSMS進行佈署。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-_HTa-ksKXIc/V1rVBsMwRdI/AAAAAAAAIK8/87hPvnu7yOo/I/14655701901877.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;個人還是喜歡透過SSMS進行操作，畢竟，實務上這一段不一定是開發人員佈署或是一般人都有權限可以直接有權限接觸DB，透過，將封裝檔案透過SSMS佈署或是更新是比較適宜的。所以，當我們設計好的資料庫專案，就可以透過編譯方式產生封裝檔案，若是中間有語法錯誤或是物件不對，就會發生編譯失敗問題。使用SSMS只要選擇佈署精靈就可以很快的佈署完畢了。先選擇要佈署的檔案，和要產生資料庫的名稱&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-F3qElv7PEZI/V1rVGezpbLI/AAAAAAAAILE/geAxbW8Hshw/I/14655702731341.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;這邊可以看到要佈署的封裝檔案的版本。&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/--rNHP-dU3TQ/V1rVGqlbCQI/AAAAAAAAILM/1G0ycx5vVfI/I/14655702868133.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;若是第一次進行封裝佈署，基本上只要不斷按下一步就可以。而若是在開發專案中有遇到資料庫更新部分，也可以透過封裝檔案進行&lt;/p&gt;
+&lt;p&gt;把某一個資料表的ID設定為識別碼&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-HpGp5pQm7k8/V1rVGxoSQkI/AAAAAAAAILU/M-x02knb6pE/I/14655703231666.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;並且把封裝版本號修改一下&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-yd-mQrpfgGU/V1rVHDIsYYI/AAAAAAAAILY/O8OoHROYU-4/I/14655703487523.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後，透過SSMS的更新資料應用程式，進行資料庫物件的更新&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-eILCkQJUp5k/V1rVHd1EcII/AAAAAAAAILg/8CSSSognktM/I/14655703586893.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;當然，還是需要選擇新版本的封裝檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-zrX0qSZPgC0/V1rVHkKsvbI/AAAAAAAAILo/qFaD0upct2Q/I/14655703675847.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;基本上若是資料庫的資料表內有資料，都會跳出警告訊息，這部分主要是告知這些異動會動到資料表，有可能會有資料表內的資料遺失風險&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-Ex-yoBFduOw/V1rVIwStDaI/AAAAAAAAILw/5MepHIRlkmg/I/14655703869214.png&quot; width=&quot;400&quot;&gt;&lt;br&gt;下圖也是進行相同的提示，這邊若是不須勾選確認會資料遺失的按鈕，就無法繼續下一步了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-h7JrdeQ0TV8/V1rVJQGDvyI/AAAAAAAAIL4/MBW_KkFFoAk/I/14655703962665.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;按完之後就等他進行更新了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-SIDTUBfZwgQ/V1rVJhyf1fI/AAAAAAAAIMA/6NIk_g_wBAc/I/14655704046740.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;更新完畢後，就可以看到ID已經被設定成識別碼了。&lt;/p&gt;
+&lt;p&gt;以上透過這樣方式就可以佈署資料庫，同時也可以將資料庫設計納入版控中。但是，個人覺得在第一次進行資料庫佈署時候，透過封裝檔案方式進行佈署，算是非常方便的，且相關機制都可以透過Visual Studio進行管控與紀錄。若是，當我們有針對資料庫內資料表或是相關程式更新時候，尤其是資料表部分，還是建議乖乖去資料表內透過手動或是寫好Script方式進行更新資料表以免真的有資料遺失。雖然，可以備份資料，但是，若是資料表內資料非常的多時候，有時候遺失那些資料還真的找不出來，又要做資料比對又很花時間與精神，而針對原本預存程序或是檢視表的更新，就可以透過封裝檔案進行&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就
+    
+    </summary>
+    
+      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Visual Studio佈署DB，自動化填入資料</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T15:13:34.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
+&lt;p&gt;一開始做法跟&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;其他的.sql檔案，就可以用一般的SQL Script去產生出來&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Scrip
+    
+    </summary>
+    
+      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法)</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:42:16.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt;方式。在T-SQL中可以用&lt;code&gt;Convert&lt;/code&gt;或是&lt;code&gt;Cast&lt;/code&gt;，但是，每次用&lt;code&gt;Convert&lt;/code&gt;時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用&lt;code&gt;Cast&lt;/code&gt;方式，可以轉換成下列幾種格式&lt;img src=&quot;/blogimage/14654843567486.png&quot;&gt;
+  分別執行結果如下:&lt;img src=&quot;/blogimage/14654843760616.png&quot;&gt;&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;Convert&lt;/code&gt;方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar,getdate(),填入center style)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;/blogimage/14654844510401.png&quot;&gt;
+&lt;hr&gt;
+&lt;h6 id=&quot;簡碼對照表&quot;&gt;&lt;a href=&quot;#簡碼對照表&quot; class=&quot;headerlink&quot; title=&quot;簡碼對照表&quot;&gt;&lt;/a&gt;簡碼對照表&lt;/h6&gt;&lt;img src=&quot;/blogimage/14654844687499.png&quot;&gt;
+&lt;p&gt;不過，在這簡碼中，若是要轉換成&lt;strong&gt;年月日時分&lt;/strong&gt;，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar(16),getdate(),120)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;
+    
+    </summary>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ASP.NET 強制設定開啟或是關閉相容性檢視</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/09/Web/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/09/Web/2016-06-10/</id>
+    <published>2016-06-09T14:59:31.000Z</published>
+    <updated>2016-06-10T14:29:52.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://moztw.org/events/code-rush/images/ani-code-rush.gif&quot;&gt;
+&lt;p&gt;通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又有可能有舊版的系統在使用。因此，IE上面會有相容性檢視的功能讓新版IE可以再使用舊版的系統(大都是IE8年代以前開發的系統)的版型不會跑掉。&lt;/p&gt;
+&lt;p&gt;在企業內部一般來說，因為很多年代久遠系統，所以，可能預設會把相容性檢視打該，但是，若是今天自己開發網站是用像是HTML5 + CSS3開發可能這樣版型在設定相容性模式下就會跑掉，但是，不太大可能讓使用者取消這設定，畢竟除新系統之外，還有成千上萬就系統還是要能執行。因此，我們可以在Web.config加入下面這一段，關閉相容性檢視這網站。或是開啟相容性檢視這網站&lt;/p&gt;
+&lt;h4 id=&quot;關閉相容性檢視&quot;&gt;&lt;a href=&quot;#關閉相容性檢視&quot; class=&quot;headerlink&quot; title=&quot;關閉相容性檢視&quot;&gt;&lt;/a&gt;關閉相容性檢視&lt;/h4&gt;&lt;hr&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;system.webServer&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;httpProtocol&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;customHeaders&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;clear /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;add name=&amp;quot;X-UA-Compatible&amp;quot; value=&amp;quot;IE=Edge&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/customHeaders&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/httpProtocol&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/system.webServer&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;開啟相容性檢視&quot;&gt;&lt;a href=&quot;#開啟相容性檢視&quot; class=&quot;headerlink&quot; title=&quot;開啟相容性檢視&quot;&gt;&lt;/a&gt;開啟相容性檢視&lt;/h4&gt;&lt;hr&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;system.webServer&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;httpProtocol&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;customHeaders&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;clear /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;add name=&amp;quot;X-UA-Compatible&amp;quot; value=&amp;quot;IE=EmulateIE7&amp;quot; /&amp;gt;   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/customHeaders&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/httpProtocol&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/system.webServer&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上兩段就可以透過自己系統定義IE瀏覽器要不要開關相容性檢視了&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://moztw.org/events/code-rush/images/ani-code-rush.gif&quot;&gt;
+&lt;p&gt;通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又
+    
+    </summary>
+    
+    
+      <category term="ASP.NET" scheme="http://edwardkuo.github.io/tags/ASP-NET/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure Web App Inbound IP和Outbound IP的不同</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/06/Azure/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/06/Azure/2016-06-10/</id>
+    <published>2016-06-06T12:09:34.000Z</published>
+    <updated>2016-06-10T14:32:23.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;Azure Web App有分為兩種類型的IP位址，一種是&lt;strong&gt;Inbound IP&lt;/strong&gt;，一種是&lt;strong&gt;Outbound IP&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Inbound IP是所謂內部虛擬IP，一般你沒有綁定SSL憑證時，這個IP是與大家分享的&lt;/li&gt;
+&lt;li&gt;Outbound IP是對外的實體IP，這個IP取決於資料中心的配置，通常是四個IP輪詢&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Inbound ＆ Outbound最簡單識別方式就是 &lt;code&gt;A Web Site&lt;/code&gt; Call &lt;code&gt;B Web Site&lt;/code&gt; 時，在B Web Site看到呼叫端的A Web Site IP就是屬於A Web Site的Outbound IP，B Web Site則是用Inbound接收A Web Site的Request&lt;/p&gt;
+&lt;p&gt;通常我們是不需要去管Web Site Outbound IP，不過，在某些情境下為了去設定防火牆，讓我們的Azure Web App能呼叫企業內部的服務或是網站，就必須去知道Web Site Outbound IP，才有辦法設定防火牆通過&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://social.msdn.microsoft.com/forums/azure/en-US/fd53afb7-14b8-41ca-bfcb-305bdeea413e/maintenance-notice-upcoming-changes-to-increase-capacity-for-outbound-network-calls&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;outbound IP List&lt;/a&gt;列出所有Azure資料中心的Outbound IP，不過，為了以防萬一這些資訊有所變更不在這列表中，還可以用另一種方式去找到Outbound IP，就是到Azure Portal中的Web App內去找&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先找到該Web App，然後到它的屬性內的Outbound IP&lt;img src=&quot;https://lh3.googleusercontent.com/-c6pkxekRCSg/V1lx-E9O5NI/AAAAAAAAIH0/XZR7y4JxGk0/I/14654751046097.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;就可以查看這Web Site的Outbound IP，通常是都會配四組Outbound IP給這個Web Site&lt;img src=&quot;https://lh3.googleusercontent.com/-V0iZEqA2TkI/V1lx-eOY-oI/AAAAAAAAIH8/NvBUnV1pEU0/I/14654790571477.png&quot; width=&quot;400&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;如果不想要透過這種方式去查詢Outbound IP，也可以使用&lt;strong&gt;Azure Resource Explorer&lt;/strong&gt;這個工具去查詢，Azure Resource Explorer的網址&lt;a href=&quot;https://resources.azure.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://resources.azure.com&lt;/a&gt;，它是一個可以發現Azure服務API的一個Web工具，雖然並非所有Azure服務都有支援，使用ARE好處如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;取得Azure 服務的API&lt;/li&gt;
+&lt;li&gt;取得API相關資訊&lt;/li&gt;
+&lt;li&gt;可以直接使用上面API，更新你服務的設定&lt;img src=&quot;https://lh3.googleusercontent.com/-kCLm83Mh4Og/V1lx-oBHpII/AAAAAAAAIIE/5kjaTlfG09E/I/14654792940089.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這個工具目前尚在Preview階段，所以，部分功能還不完整。以目前要查&lt;strong&gt;Outbound IP&lt;/strong&gt;為例，只要去找到你所屬的Web Site名稱，就可以在旁邊的Json資訊中找到&lt;strong&gt;outboundIpAddresses&lt;/strong&gt; Key，然後就可以發現此Web Site的Outbound IP List&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-RNSQgQNU1tA/V1lx-w2J2BI/AAAAAAAAIIM/VA-nCX0v6wU/I/14654794006301.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;如果，有用中國Azure的人，目前此工具還不支援，再加上又沒有新的Portal可以支援查詢，因此，列出北京與上海資料中心的Outbound IP給有需要的人&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Scale Unit Name: BJB-001 （北京資料中心）&lt;ul&gt;
+&lt;li&gt;Outbound IP Addresses&lt;ul&gt;
+&lt;li&gt;42.159.4.73&lt;/li&gt;
+&lt;li&gt;42.159.4.84&lt;/li&gt;
+&lt;li&gt;42.159.4.211&lt;/li&gt;
+&lt;li&gt;42.159.4.160&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Scale Unit Name: SHA-001 （上海資料中心）&lt;ul&gt;
+&lt;li&gt;Outbound IP Addresses&lt;ul&gt;
+&lt;li&gt;42.159.135.109&lt;/li&gt;
+&lt;li&gt;42.159.135.174&lt;/li&gt;
+&lt;li&gt;42.159.135.208&lt;/li&gt;
+&lt;li&gt;42.159.133.172&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;Azure Web App有分為兩種類型的IP位址，一種是&lt;str
+    
+    </summary>
+    
+    
+      <category term="Azure" scheme="http://edwardkuo.github.io/tags/Azure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>建立Azure上海與香港資料中心Site to Site VPN</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/02/Azure/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/02/Azure/2016-06-10-1/</id>
+    <published>2016-06-02T14:59:31.000Z</published>
+    <updated>2016-06-10T14:33:01.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;如果有同時使用&lt;strong&gt;China Azure&lt;/strong&gt;和&lt;strong&gt;Global Azure&lt;/strong&gt;，遇到最麻煩的事情，就是怎樣把兩邊的資料做整合，一方面是兩邊的Azure功能性不一致，另一方面是因為&lt;strong&gt;中國長城&lt;/strong&gt;關係，導致資料Sync不能透過一般HTTP解決，因此，為了解決這問題，只好建立一組Site to Site的VPN，解決雙方的Azure資料中心的溝通問題&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;先自行規劃上海資料中心和香港資料中心的網路IP分配&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;* 上海資料中心：10.1.0.0 /16，名稱：CN-NET&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* 香港資料中心：10.2.0.0 /16，名稱：HK-NET&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;開始設定Azure的虛擬網路吧，先設定CN-NET這部分 &lt;img src=&quot;/blogimage/14653996914222.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;虛擬網路名稱取名為CN-NET &lt;img src=&quot;/blogimage/14653999318389.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;這邊選 &lt;strong&gt;設定網站間VPN&lt;/strong&gt; &lt;img src=&quot;/blogimage/14654000414393.png&quot; width=&quot;500&quot;&gt;
+設定香港資料中心的虛擬網路資訊，名稱設定為HK-NET，名稱後續要跟設定香港資料中心的名稱一樣，位置空間的IP就設定&lt;code&gt;IP:10.2.0.0 /16&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;VPN裝置的IP位址，可以先隨便設定一個，後面會改掉，但是，設定的IP不可以跟你後續香港或是上海資料中內的位址IP有重複，不然會發生錯誤&lt;img src=&quot;/blogimage/14654000957827.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;設定上海資料中心的虛擬網路的IP&lt;code&gt;10.1.0.0 /16&lt;/code&gt;，然後再設定Subnet IP &lt;code&gt;10.1.1.0 /29&lt;/code&gt;，按下確定就可以&lt;img src=&quot;/blogimage/14654001115661.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;上海資料中心設定完成後，再來設定香港資料中心，幾乎步驟都相同，只有在設定的地方不一樣&lt;img src=&quot;/blogimage/14654001304530.png&quot; width=&quot;400&quot;&gt;&lt;/li&gt;
+&lt;li&gt;這邊依舊選 &lt;strong&gt;設定網站間VPN&lt;/strong&gt;&lt;img src=&quot;/blogimage/14654001492649.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;改設定上海資料中心的虛擬網路資訊，所以名稱設定為CN-NET，位址IP&lt;code&gt;10.1.0.0 /16&lt;/code&gt;，這邊的VPN IP位址，也可以先隨便設定一個，同樣的不可以跟你後續香港或是上海資料中內的位址重複，不然會出現錯誤&lt;img src=&quot;/blogimage/14654001612190.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;設定香港資料中心的虛擬網路的IP&lt;code&gt;10.2.0.0 /16&lt;/code&gt;，在設定Subnet IP &lt;code&gt;10.2.1.0 /29&lt;/code&gt;，按下確定就可以設定完成&lt;/p&gt;
+&lt;img src=&quot;/blogimage/14654001815324.png&quot; width=&quot;500&quot;&gt;
+&lt;p&gt; 兩邊資料中心都設定完成後，在兩邊設定畫面中，就會出現VNET組態檔，這時候我們要把這組態檔匯出來&lt;/p&gt;
+&lt;img src=&quot;/blogimage/14654001942694.png&quot; width=&quot;300&quot;&gt;
+&lt;p&gt; 下載出來的組態檔內容如下，我們後續會修改組態檔中的 &lt;strong&gt;VPNGatewayaddress&lt;/strong&gt; 的值&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;NetworkConfiguration xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns=&amp;quot;http://schemas.microsoft.com/ServiceHosting/2011/07/NetworkConfiguration&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;VirtualNetworkConfiguration&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;Dns /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;LocalNetworkSites&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;LocalNetworkSite name=&amp;quot;HK-NET&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;AddressPrefix&amp;gt;10.2.0.0/16&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;VPNGatewayAddress&amp;gt;2.2.2.2&amp;lt;/VPNGatewayAddress&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;/LocalNetworkSite&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;LocalNetworkSite name=&amp;quot;v-net-west&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;AddressPrefix&amp;gt;10.200.0.0/16&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;VPNGatewayAddress&amp;gt;23.99.112.76&amp;lt;/VPNGatewayAddress&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;/LocalNetworkSite&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/LocalNetworkSites&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;VirtualNetworkSites&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;VirtualNetworkSite name=&amp;quot;CN-NET&amp;quot; Location=&amp;quot;China East&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;AddressPrefix&amp;gt;10.1.0.0/16&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Subnets&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;Subnet name=&amp;quot;Subnet-1&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;AddressPrefix&amp;gt;10.1.0.0/24&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/Subnet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;Subnet name=&amp;quot;GatewaySubnet&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;AddressPrefix&amp;gt;10.1.1.0/29&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/Subnet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/Subnets&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Gateway&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;ConnectionsToLocalNetwork&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;LocalNetworkSiteRef name=&amp;quot;HK-NET&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              &amp;lt;Connection type=&amp;quot;IPsec&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;/LocalNetworkSiteRef&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/ConnectionsToLocalNetwork&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/Gateway&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;/VirtualNetworkSite&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;VirtualNetworkSite name=&amp;quot;v-net-china&amp;quot; Location=&amp;quot;China East&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;AddressPrefix&amp;gt;10.100.0.0/16&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/AddressSpace&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Subnets&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;Subnet name=&amp;quot;Subnet-1&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;AddressPrefix&amp;gt;10.100.0.0/24&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/Subnet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;Subnet name=&amp;quot;GatewaySubnet&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;AddressPrefix&amp;gt;10.100.1.0/29&amp;lt;/AddressPrefix&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/Subnet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/Subnets&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Gateway&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;ConnectionsToLocalNetwork&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;LocalNetworkSiteRef name=&amp;quot;v-net-west&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              &amp;lt;Connection type=&amp;quot;IPsec&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;/LocalNetworkSiteRef&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;lt;/ConnectionsToLocalNetwork&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/Gateway&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;/VirtualNetworkSite&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/VirtualNetworkSites&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/VirtualNetworkConfiguration&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/NetworkConfiguration&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在兩處的Azure虛擬網路部分，建立閘道，選定 &lt;strong&gt;動態路由&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&quot;/blogimage/14654002638395.png&quot; width=&quot;300&quot;&gt;&lt;/li&gt;
+&lt;li&gt;建立閘道時間會比較長，可能要20多分鐘以上，路由建立好後，會出現下面樣子&lt;img src=&quot;/blogimage/14654002816194.png&quot; width=&quot;300&quot;&gt;
+再回到剛剛的組態檔案，從CN-NET得到的閘道IP，修改從HK-NET下載的組態檔中的&lt;strong&gt;VPNgetwayaddress&lt;/strong&gt;的值，然後再到香港資料中心取得其閘道IP，再將這閘道IP，取代從CN-NET下載的組態檔案中的&lt;strong&gt;VPNgetwayaddress&lt;/strong&gt;的值&lt;img src=&quot;/blogimage/14654002991514.png&quot; width=&quot;400&quot;&gt;&lt;/li&gt;
+&lt;li&gt;都設定好之後，分別上傳組態檔案，上海組態檔上傳到上海資料中心，香港組態檔上傳到香港資料中心&lt;img src=&quot;/blogimage/14654003300096.png&quot; width=&quot;400&quot;&gt;&lt;/li&gt;
+&lt;li&gt;上面會顯示有被更新的資訊，直接確認就可以&lt;img src=&quot;/blogimage/14654003502434.png&quot; width=&quot;400&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;到了這一步，基本上在介面上的設定都完畢，剩下就必須透過Powershell去把這兩邊的資料中心連線串接起來&lt;/p&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先先設定上海資料中心部分，使用Powershell去取得中國的Azure帳號，其指令是&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Add-AzureAccount -Environment AzureChinaCloud&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 登入後，使用&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Select-AzureSubscription -SubscriptionId &amp;quot;訂閱號碼“&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 選定我們的訂閱戶，開始配置兩邊的共享金鑰，金鑰名稱可以自行輸入，但是，兩邊資料中心的金鑰要使用一樣，如果在上海資料中心，設定的VNetName就是&lt;code&gt;CN-Net&lt;/code&gt;，LocalNetworkSiteName就是&lt;code&gt;hk-Net&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Set-AzureVNetGatewaykey -VNetName CN-NET -LocalNetworkSiteName HK-NET –SharedKey 金鑰&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&quot;/blogimage/14654005132788.png&quot; width=&quot;500&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;設定香港的資料中心&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Set-AzureVNetGatewaykey -VNetName HK-NET -LocalNetworkSiteName CN-NET –SharedKey 金鑰&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;兩邊都設定成功後，請再等待幾分鐘，就可以看到這兩邊的VNET串接起來了&lt;/p&gt;
+&lt;img src=&quot;/blogimage/14654005765227.png&quot; width=&quot;500&quot;&gt;&lt;/li&gt;
+&lt;li&gt;如果不確定，也可以透過Powershell指令去查看&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Get-AzureVnetConnection –VnetName HK-NET&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&quot;/blogimage/14654006023615.png&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;這樣中國與Global兩邊資料中心的虛擬網路就串起來了，最後提醒一下，是設定Site to Site，而不是Point to Site VPN唷&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;如果有同時使用&lt;strong&gt;China Azure&lt;/stron
+    
+    </summary>
+    
+    
+      <category term="Azure" scheme="http://edwardkuo.github.io/tags/Azure/"/>
+    
+  </entry>
+  
+</feed>

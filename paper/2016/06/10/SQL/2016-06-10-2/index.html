@@ -3,41 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>C# 無條件進位,無條件捨去及四捨五入寫法 | E.K 2.0</title>
+    <title>使用Visual Studio佈署DB，自動化填入資料 | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="C#" />
+        <meta name="keywords" content="T-SQL" />
     
-    <meta name="description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
-
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
+    <meta name="description" content="在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C# 無條件進位,無條件捨去及四捨五入寫法">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/index.html">
+<meta property="og:title" content="使用Visual Studio佈署DB，自動化填入資料">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
-
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
-<meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:31:30.000Z">
+<meta property="og:description" content="在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動">
+<meta property="og:image" content="http://www.srcinc.com/images/eha-headers-databases.jpg">
+<meta property="og:updated_time" content="2016-06-10T15:13:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C# 無條件進位,無條件捨去及四捨五入寫法">
-<meta name="twitter:description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
-
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
-<meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+<meta name="twitter:title" content="使用Visual Studio佈署DB，自動化填入資料">
+<meta name="twitter:description" content="在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動">
+<meta name="twitter:image" content="http://www.srcinc.com/images/eha-headers-databases.jpg">
     
 
     
@@ -160,49 +142,47 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    uncategorized
+    <a class="page-title-link" href="/categories/資料庫程式版控/">資料庫程式版控</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Net/2016-06-10-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-SQL/2016-06-10-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        C# 無條件進位,無條件捨去及四捨五入寫法
+        使用Visual Studio佈署DB，自動化填入資料
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/Net/2016-06-10-2/" class="article-date">
+            <a href="/paper/2016/06/10/SQL/2016-06-10-2/" class="article-date">
     <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/T-SQL/">T-SQL</a></li></ul>
 
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<p>雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢</p>
-<ul>
-<li><p>無條件進位</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 100;</span><br><span class="line">int result = 0;</span><br><span class="line">result = Convert.ToInt16(Math.Ceiling(s / 3));</span><br></pre></td></tr></table></figure>
+            <img src="http://www.srcinc.com/images/eha-headers-databases.jpg">
+<p>在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。</p>
+<p>一開始做法跟<a href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/">開始進行資料庫程式的版控和佈署</a>這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以</p>
+<ol>
+<li><p>首先我們要加入指令碼，通常這指令碼就是SQL Script</p>
+<img src="https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png" width="500">
 </li>
-<li><p>無條件捨去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 100;</span><br><span class="line">int result = 0;</span><br><span class="line">result =Convert.ToInt16( Math.Floor(s / 3));</span><br></pre></td></tr></table></figure>
+<li><p>選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以</p>
+<img src="https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png" width="500">
 </li>
-<li><p>四捨五入<br>使用<code>Math.Round</code>， Math.Round(計算值,小數點第幾位)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 110;</span><br><span class="line">double result = 0;</span><br><span class="line">result = Math.Round((s / 3), 2);</span><br></pre></td></tr></table></figure>
-<p>  若是要呈現一般認知的四捨五入需加入第三個參數，<code>MidpointRounding.AwayFromZer</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.Math.Round(1.235 , 2, MidpointRounding.AwayFromZero)</span><br></pre></td></tr></table></figure>
+<li><p>新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。</p>
+<img src="https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png" width="500">
 </li>
-</ul>
-<hr>
-<p>參考來源：<a href="http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx" target="_blank" rel="external">http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx</a></p>
+</ol>
+<p>以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案<br><img src="https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png" width="500"><br>其他的.sql檔案，就可以用一般的SQL Script去產生出來<br><img src="https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png" width="500"><br>然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔</p>
 
         </div>
         <footer class="article-footer">
@@ -323,20 +303,20 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/Net/2016-06-10-1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/10/SQL/2016-06-10-1/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            C# 使用For和Foreach讀取Datatable每筆資料對照寫法
+            開始進行資料庫程式的版控和佈署
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
     
-        <a href="/paper/2016/06/10/Net/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/10/SQL/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">使用Linq的Join / right Join / Left Join</p>
+        <p class="article-nav-title">T-SQL 時間欄位的格式化(用Convert / Cast作法)</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -555,7 +535,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/';
     
     (function() {
     var dsq = document.createElement('script');
