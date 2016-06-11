@@ -618,7 +618,7 @@
     <link href="http://edwardkuo.github.io/paper/2016/06/01/Net/2016-06-11-2/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/01/Net/2016-06-11-2/</id>
     <published>2016-06-01T15:59:31.000Z</published>
-    <updated>2016-06-11T16:00:01.000Z</updated>
+    <updated>2016-06-11T16:01:01.000Z</updated>
     
     <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
 &lt;p&gt;常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是&lt;strong&gt;10進位轉二進位&lt;/strong&gt;,&lt;strong&gt;10進位轉16進位&lt;/strong&gt;…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。&lt;/p&gt;
