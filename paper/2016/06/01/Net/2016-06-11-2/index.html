@@ -3,26 +3,32 @@
 <head>
     <meta charset="utf-8">
     
-    <title>ASP.NET 強制設定開啟或是關閉相容性檢視 | E.K 2.0</title>
+    <title>一些C#數值轉換整理 | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="ASP.NET" />
+        <meta name="keywords" content="C#" />
     
-    <meta name="description" content="通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又有可能有舊版的系統在使用。因此，IE上面會有相容性檢視的功能讓新版IE可以再使用舊版的系統(大都是IE8年代以前開發的系統)的版型不會跑掉。
-在企業內部一般來說，因為很多年代久遠系統，所以，可能預設會把相容性檢視打該，但是，若是今天自己開發網站是用像是HTML5 +">
+    <meta name="description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
+
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ASP.NET 強制設定開啟或是關閉相容性檢視">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/09/Web/2016-06-10/index.html">
+<meta property="og:title" content="一些C#數值轉換整理">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/01/Net/2016-06-11-2/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又有可能有舊版的系統在使用。因此，IE上面會有相容性檢視的功能讓新版IE可以再使用舊版的系統(大都是IE8年代以前開發的系統)的版型不會跑掉。
-在企業內部一般來說，因為很多年代久遠系統，所以，可能預設會把相容性檢視打該，但是，若是今天自己開發網站是用像是HTML5 +">
-<meta property="og:image" content="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
-<meta property="og:updated_time" content="2016-06-10T14:29:52.000Z">
+<meta property="og:description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
+
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
+<meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+<meta property="og:updated_time" content="2016-06-11T16:00:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ASP.NET 強制設定開啟或是關閉相容性檢視">
-<meta name="twitter:description" content="通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又有可能有舊版的系統在使用。因此，IE上面會有相容性檢視的功能讓新版IE可以再使用舊版的系統(大都是IE8年代以前開發的系統)的版型不會跑掉。
-在企業內部一般來說，因為很多年代久遠系統，所以，可能預設會把相容性檢視打該，但是，若是今天自己開發網站是用像是HTML5 +">
-<meta name="twitter:image" content="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
+<meta name="twitter:title" content="一些C#數值轉換整理">
+<meta name="twitter:description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
+
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
+<meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
     
 
     
@@ -149,36 +155,53 @@ ga('send', 'pageview');
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Web/2016-06-10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Net/2016-06-11-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        ASP.NET 強制設定開啟或是關閉相容性檢視
+        一些C#數值轉換整理
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/09/Web/2016-06-10/" class="article-date">
-    <time datetime="2016-06-09T14:59:31.000Z" itemprop="datePublished">2016-06-09</time>
+            <a href="/paper/2016/06/01/Net/2016-06-11-2/" class="article-date">
+    <time datetime="2016-06-01T15:59:31.000Z" itemprop="datePublished">2016-06-01</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-NET/">ASP.NET</a></li></ul>
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
 
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
-<p>通常網頁在開發上，最怕就是整個版型跑掉，因為，網頁系統上的UI版型跑掉是最麻煩一件事情，但是往往因為，目前網頁開發技術並未統一，且又有可能有舊版的系統在使用。因此，IE上面會有相容性檢視的功能讓新版IE可以再使用舊版的系統(大都是IE8年代以前開發的系統)的版型不會跑掉。</p>
-<p>在企業內部一般來說，因為很多年代久遠系統，所以，可能預設會把相容性檢視打該，但是，若是今天自己開發網站是用像是HTML5 + CSS3開發可能這樣版型在設定相容性模式下就會跑掉，但是，不太大可能讓使用者取消這設定，畢竟除新系統之外，還有成千上萬就系統還是要能執行。因此，我們可以在Web.config加入下面這一段，關閉相容性檢視這網站。或是開啟相容性檢視這網站</p>
-<h4 id="關閉相容性檢視"><a href="#關閉相容性檢視" class="headerlink" title="關閉相容性檢視"></a>關閉相容性檢視</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">  &lt;httpProtocol&gt;</span><br><span class="line">    &lt;customHeaders&gt;</span><br><span class="line">      &lt;clear /&gt;</span><br><span class="line">      &lt;add name=&quot;X-UA-Compatible&quot; value=&quot;IE=Edge&quot; /&gt;</span><br><span class="line">    &lt;/customHeaders&gt;</span><br><span class="line">  &lt;/httpProtocol&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="開啟相容性檢視"><a href="#開啟相容性檢視" class="headerlink" title="開啟相容性檢視"></a>開啟相容性檢視</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">  &lt;httpProtocol&gt;</span><br><span class="line">    &lt;customHeaders&gt;</span><br><span class="line">      &lt;clear /&gt;</span><br><span class="line">    &lt;add name=&quot;X-UA-Compatible&quot; value=&quot;IE=EmulateIE7&quot; /&gt;   </span><br><span class="line">    &lt;/customHeaders&gt;</span><br><span class="line">  &lt;/httpProtocol&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure>
-<p>以上兩段就可以透過自己系統定義IE瀏覽器要不要開關相容性檢視了</p>
+            <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+<p>常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是<strong>10進位轉二進位</strong>,<strong>10進位轉16進位</strong>…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。</p>
+<ul>
+<li><p>10進位轉2進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int d = 3;</span><br><span class="line">//轉換資料</span><br><span class="line">string str = Convert.ToString(d, 2);</span><br><span class="line">//補足四碼</span><br><span class="line">str = str.PadLeft(4,&apos;0&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>10進位轉16進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int dint=11</span><br><span class="line">//轉換16進位</span><br><span class="line">string strHex= String.Format(&quot;&#123;0:X&#125;&quot;, dint);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>16進位轉10進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">string s2=&quot;AB&quot;</span><br><span class="line">//轉換10進位</span><br><span class="line">int j = 0;</span><br><span class="line">int result = 0;</span><br><span class="line">for (int i = 0; i &lt; s2.Length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    result = result * 16;</span><br><span class="line">    j = s2[i] - 48;</span><br><span class="line">    if (j &lt; 10)</span><br><span class="line">    &#123;</span><br><span class="line">        result = result + j;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        result = result + j - 39;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>或是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Convert.ToInt32(&quot;100&quot;, 16)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>10進位轉ASCII</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int t = 44;</span><br><span class="line">//資料轉換</span><br><span class="line">string s = Convert.ToString((char)t);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ASCII轉10進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string str = &quot;,&quot;;</span><br><span class="line">//資料轉換</span><br><span class="line">byte[] inputBytes =null;</span><br><span class="line">inputBytes = Encoding.ASCII.GetBytes(str);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>16進位轉ASCII<br>這邊做法與上述轉換相同，只是將兩道程序複合運作，先執行16進位轉10進位，再做10進位轉ASCII</p>
+</li>
+<li>ASCII轉16進位<br>這邊做法與上述轉換相同，只是將兩道程序複合運作，先執行10進位轉ASCII，再做10進位轉16進位</li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -299,22 +322,16 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/SQL/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/02/Azure/2016-06-10-1/" id="article-nav-newer" class="article-nav-link-wrap">
         <strong class="article-nav-caption">newer</strong>
         <p class="article-nav-title">
         
-            T-SQL 時間欄位的格式化(用Convert / Cast作法)
+            建立Azure上海與香港資料中心Site to Site VPN
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
     </a>
     
-    
-        <a href="/paper/2016/06/06/Azure/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Azure Web App Inbound IP和Outbound IP的不同</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
     
 </nav>
 
@@ -531,7 +548,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/09/Web/2016-06-10/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/01/Net/2016-06-11-2/';
     
     (function() {
     var dsq = document.createElement('script');
