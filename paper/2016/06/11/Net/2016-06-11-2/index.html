@@ -3,40 +3,31 @@
 <head>
     <meta charset="utf-8">
     
-    <title>C# 無條件進位,無條件捨去及四捨五入寫法 | E.K 2.0</title>
+    <title>一些C#數值轉換整理 | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="C#" />
     
-    <meta name="description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
+    <meta name="description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
 
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C# 無條件進位,無條件捨去及四捨五入寫法">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/index.html">
+<meta property="og:title" content="一些C#數值轉換整理">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-2/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
+<meta property="og:description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
 
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
 <meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:31:30.000Z">
+<meta property="og:updated_time" content="2016-06-11T15:58:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C# 無條件進位,無條件捨去及四捨五入寫法">
-<meta name="twitter:description" content="雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢
+<meta name="twitter:title" content="一些C#數值轉換整理">
+<meta name="twitter:description" content="常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是10進位轉二進位,10進位轉16進位…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。
 
-無條件進位
-123double s = 100;int result = 0;result = Convert.ToInt16(Math.Ceiling(s / 3));
-
-無條件捨去
-123double s = 100;int result = 0;resul">
+10進位轉2進位
+12345int d = 3;//轉換資料string str = Convert.ToString(d, 2);//補足四碼">
 <meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
     
 
@@ -164,22 +155,22 @@ ga('send', 'pageview');
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Net/2016-06-10-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Net/2016-06-11-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        C# 無條件進位,無條件捨去及四捨五入寫法
+        一些C#數值轉換整理
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/Net/2016-06-10-2/" class="article-date">
-    <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
+            <a href="/paper/2016/06/11/Net/2016-06-11-2/" class="article-date">
+    <time datetime="2016-06-11T15:59:31.000Z" itemprop="datePublished">2016-06-11</time>
 </a>
             
     <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
@@ -187,22 +178,30 @@ ga('send', 'pageview');
         </div>
         <div class="article-entry" itemprop="articleBody">
             <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<p>雖然程式很簡單，但是，一時要用還真的不知道要怎樣寫，畢竟現在一個程式開發者要記憶的東西太多，所以，不時時刻刻記憶一些東西還真的不行呢</p>
+<p>常常需要撰寫對資料中的數值進行資料轉換來符合規格上的需求，如:10進位轉成16進位,10進位轉ASCII…等等。這邊把常用的一些數值轉換語法，像是<strong>10進位轉二進位</strong>,<strong>10進位轉16進位</strong>…等，在此做一下整理，避免臨時有需要使用時，卻一時無法想起怎樣使用。</p>
 <ul>
-<li><p>無條件進位</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 100;</span><br><span class="line">int result = 0;</span><br><span class="line">result = Convert.ToInt16(Math.Ceiling(s / 3));</span><br></pre></td></tr></table></figure>
+<li><p>10進位轉2進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int d = 3;</span><br><span class="line">//轉換資料</span><br><span class="line">string str = Convert.ToString(d, 2);</span><br><span class="line">//補足四碼</span><br><span class="line">str = str.PadLeft(4,&apos;0&apos;);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>無條件捨去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 100;</span><br><span class="line">int result = 0;</span><br><span class="line">result =Convert.ToInt16( Math.Floor(s / 3));</span><br></pre></td></tr></table></figure>
+<li><p>10進位轉16進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int dint=11</span><br><span class="line">//轉換16進位</span><br><span class="line">string strHex= String.Format(&quot;&#123;0:X&#125;&quot;, dint);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>四捨五入<br>使用<code>Math.Round</code>， Math.Round(計算值,小數點第幾位)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double s = 110;</span><br><span class="line">double result = 0;</span><br><span class="line">result = Math.Round((s / 3), 2);</span><br></pre></td></tr></table></figure>
-<p>  若是要呈現一般認知的四捨五入需加入第三個參數，<code>MidpointRounding.AwayFromZer</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.Math.Round(1.235 , 2, MidpointRounding.AwayFromZero)</span><br></pre></td></tr></table></figure>
+<li><p>16進位轉10進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">string s2=&quot;AB&quot;</span><br><span class="line">//轉換10進位</span><br><span class="line">int j = 0;</span><br><span class="line">int result = 0;</span><br><span class="line">for (int i = 0; i &lt; s2.Length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    result = result * 16;</span><br><span class="line">    j = s2[i] - 48;</span><br><span class="line">    if (j &lt; 10)</span><br><span class="line">    &#123;</span><br><span class="line">        result = result + j;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        result = result + j - 39;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<hr>
-<p>參考來源：<a href="http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx" target="_blank" rel="external">http://msdn.microsoft.com/zh-tw/library/ef48waz8(v=VS.100).aspx</a></p>
+<p>或是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Convert.ToInt32(&quot;100&quot;, 16)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>10進位轉ASCII</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int t = 44;</span><br><span class="line">//資料轉換</span><br><span class="line">string s = Convert.ToString((char)t);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ASCII轉10進位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string str = &quot;,&quot;;</span><br><span class="line">//資料轉換</span><br><span class="line">byte[] inputBytes =null;</span><br><span class="line">inputBytes = Encoding.ASCII.GetBytes(str);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>16進位轉ASCII<br>這邊做法與上述轉換相同，只是將兩道程序複合運作，先執行16進位轉10進位，再做10進位轉ASCII</p>
+</li>
+<li>ASCII轉16進位<br>這邊做法與上述轉換相同，只是將兩道程序複合運作，先執行10進位轉ASCII，再做10進位轉16進位</li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -323,20 +322,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/App/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            在MAC中的Visual Studio Code編譯ionic的Cordova專案
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/paper/2016/06/10/Net/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/11/Net/2016-06-11-1/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">使用Linq的Join / right Join / Left Join</p>
+        <p class="article-nav-title">用C#做查詢,建立及刪除檔案目錄功能</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -555,7 +544,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-2/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-2/';
     
     (function() {
     var dsq = document.createElement('script');
