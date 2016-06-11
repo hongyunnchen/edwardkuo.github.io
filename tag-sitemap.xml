@@ -9,13 +9,6 @@
     </url>
 
     <url>
-        <loc>http://edwardkuo.github.io/tags/C/</loc>
-        <lastmod>2016-06-10T14:31:30.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://edwardkuo.github.io/tags/T-SQL/</loc>
         <lastmod>2016-06-10T15:17:26.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -32,6 +25,13 @@
     <url>
         <loc>http://edwardkuo.github.io/tags/Azure/</loc>
         <lastmod>2016-06-11T12:24:57.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://edwardkuo.github.io/tags/C/</loc>
+        <lastmod>2016-06-11T12:42:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
