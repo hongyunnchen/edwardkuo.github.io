@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://edwardkuo.github.io/"/>
-  <updated>2016-06-10T15:31:43.000Z</updated>
+  <updated>2016-06-11T12:22:30.000Z</updated>
   <id>http://edwardkuo.github.io/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>管理Azure Resources內的Resources Group、</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/</id>
+    <published>2016-06-11T14:59:31.000Z</published>
+    <updated>2016-06-11T12:22:30.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。&lt;/p&gt;
+&lt;p&gt;在Azure的Resources Group設計中，是讓我們很容易去管理Azure服務。因此，對於初期架構設計的一些『錯誤』或是業務的變更，後面還是必須想辦法去彌補或是去更新，才不會等到最後架構變大，服務變多了，要管理起來也就更不方便&lt;/p&gt;
+&lt;p&gt;例如：業務A的Web App和SQL Database分散在不同Resources Group，我們定義一個名叫A Resources Group，把分散在各地屬於A服務的資源放在一起，要怎樣做呢？&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-IJWWyWFAap8/V1wByMbh_DI/AAAAAAAAINY/957vj2YTikA/I/14656282262063.png&quot; width=&quot;400&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Move-SQL-Database&quot;&gt;&lt;a href=&quot;#Move-SQL-Database&quot; class=&quot;headerlink&quot; title=&quot;Move SQL Database&quot;&gt;&lt;/a&gt;Move SQL Database&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先，把SQL Database搬到新的Resources Group，這部分可以在新的Azure Portal 去做搬遷，記住搬遷SQL Database，一定要連同SQL Database Server一起搬遷，不能只有把Database進行轉移，所以，在SQL Server選擇『Move』就可以開始進行轉移&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-7SnuTa-SCb4/V1wByIi_s7I/AAAAAAAAINg/NMceGHkBD-c/I/14656283183292.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;選擇要遷入的Resource Group名稱，按下確定之後，就可以進行搬遷囉，在搬遷時候，服務會停止一下，不過，時間不確定要多長，以目前這個SQL Database Size比較小，在30秒內就可以完成搬遷&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-N4EqjFgJGGs/V1wBylGIhII/AAAAAAAAINo/QJAibz4bxoY/I/14656284086698.png&quot; width=&quot;300&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Storage-Move&quot;&gt;&lt;a href=&quot;#Storage-Move&quot; class=&quot;headerlink&quot; title=&quot;Storage Move&quot;&gt;&lt;/a&gt;Storage Move&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;搬遷Storage，搬遷Storage步驟就多一點點，選擇storage的&lt;strong&gt;屬性&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-7AloEQ8zckk/V1wBy7YbHSI/AAAAAAAAINw/F-Y3SiwQgD8/I/14656285281213.png&quot; width=&quot;300&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;往下滑動，就可以找到Resource Group，在這邊就可以變換Resource Group&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/--zDQCYw_ORk/V1wBzGRIqKI/AAAAAAAAIN4/n7miBMb9Up4/I/14656285767948.png&quot; width=&quot;300&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;選擇要搬遷的Storage，就可以開始進行搬遷了&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-fjTFJ1HRvGM/V1wBzUOnnkI/AAAAAAAAIOA/3lMaIDxQUtk/I/14656285957649.png&quot; width=&quot;300&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Web-App-Move&quot;&gt;&lt;a href=&quot;#Web-App-Move&quot; class=&quot;headerlink&quot; title=&quot;Web App Move&quot;&gt;&lt;/a&gt;Web App Move&lt;/h3&gt;&lt;p&gt;移動App Servie方式也跟移動Storage一樣，到屬性的地方去修改要移動到的Resource Group，就可以把資源給轉移了，不過，這邊有一個陷阱，就是你在轉移Web App，記得所屬的App Service Plan也要一併轉移，不然到時候會無法把原本的Web App去轉移到其他的App Service Plan。這樣會出現Service Plan橫跨不同Resource Group的錯誤。&lt;/p&gt;
+&lt;p&gt;此外，在Web App轉移上，目前有一個限制，就是如果在一個Resource Group裡面有多個App Service Plan，就無法做移轉的動作，換句話說想要做移轉，必須確保Resource Group內只有一個App Service Plan才行，如下圖，這樣是無法進行移轉的&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-nQbDZUo2y3g/V1wBzm-3E6I/AAAAAAAAIOI/c7mjR3cWUYY/I/14656474514457.png&quot; width=&quot;300&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果還是強行移轉，在Portal是看不到錯誤資訊，只是不會有動作，如果用PowerShell去跑，就會出現下面錯誤，這一點要注意的&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-bSzxIK87pGE/V1wBzy0BthI/AAAAAAAAIOQ/AV3hU5eRHPg/I/14656474982854.png&quot; width=&quot;300&quot;&gt;
+&lt;p&gt;如果不想透過Portal去做轉移，也可以使用PowerShell去控制&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$webapp = Get-AzureRmResource -ResourceGroupName OldResourceGroupName -ResourceName ResourceName&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$plan = Get-AzureRmResource -ResourceGroupName OldResourceGroupName -ResourceName ResourceName&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Move-AzureRmResource -DestinationResourceGroupName NewResourceGroupName -ResourceId $webapp.ResourceId, $plan.ResourceId&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
+&lt;p&gt;之前在Azure開一些服務時候，它會自動配置一個Resources
+    
+    </summary>
+    
+    
+      <category term="Azure" scheme="http://edwardkuo.github.io/tags/Azure/"/>
+    
+  </entry>
   
   <entry>
     <title>在MAC中的Visual Studio Code編譯ionic的Cordova專案</title>
@@ -61,6 +110,39 @@
     
     
       <category term="Cordova" scheme="http://edwardkuo.github.io/tags/Cordova/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法)</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:42:16.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt;方式。在T-SQL中可以用&lt;code&gt;Convert&lt;/code&gt;或是&lt;code&gt;Cast&lt;/code&gt;，但是，每次用&lt;code&gt;Convert&lt;/code&gt;時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用&lt;code&gt;Cast&lt;/code&gt;方式，可以轉換成下列幾種格式&lt;img src=&quot;/blogimage/14654843567486.png&quot;&gt;
+  分別執行結果如下:&lt;img src=&quot;/blogimage/14654843760616.png&quot;&gt;&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;Convert&lt;/code&gt;方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar,getdate(),填入center style)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;/blogimage/14654844510401.png&quot;&gt;
+&lt;hr&gt;
+&lt;h6 id=&quot;簡碼對照表&quot;&gt;&lt;a href=&quot;#簡碼對照表&quot; class=&quot;headerlink&quot; title=&quot;簡碼對照表&quot;&gt;&lt;/a&gt;簡碼對照表&lt;/h6&gt;&lt;img src=&quot;/blogimage/14654844687499.png&quot;&gt;
+&lt;p&gt;不過，在這簡碼中，若是要轉換成&lt;strong&gt;年月日時分&lt;/strong&gt;，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar(16),getdate(),120)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;
+    
+    </summary>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
     
   </entry>
   
@@ -131,6 +213,43 @@
   </entry>
   
   <entry>
+    <title>開始進行資料庫程式的版控和佈署</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T15:00:52.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就不會去做版控。針對這一部份，大都採用傳統方式，用複製的動作進行版控，久而久之就會開始遺失或是缺東缺西。早期要做資料庫物件版控其實也不容易，畢竟，DB是透過Script運作。自從VisualStudio有資料庫專案後，再加上資料庫更新與建制，可以透過.dacpac封裝方式進行部署與差異化更新，因此，要把資料庫納入版控就相對簡單許多。因此，可以開始嘗試使用DB資料庫專案進行開發&lt;/p&gt;
+&lt;p&gt;首先，在Visual Studio內找到SQL Server專案範本，透過這專案範本就可以建立資料庫專案了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-vfVKS97Jigc/V1rVBejSjQI/AAAAAAAAIK0/BMu90hbStfc/I/14655699882460.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;開啟資料庫專案後，就跟開發程式一樣簡單了，可以透過新增項目去開發資料庫的物件。若是，針對舊有的資料庫進行版控，就必須將資料庫匯入資料庫專案中，這樣後續才有辦法產生.dacpac檔案，設計完畢後，就可以透過Visual Stduio進行發行資料庫或是透過SSMS進行佈署。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-_HTa-ksKXIc/V1rVBsMwRdI/AAAAAAAAIK8/87hPvnu7yOo/I/14655701901877.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;個人還是喜歡透過SSMS進行操作，畢竟，實務上這一段不一定是開發人員佈署或是一般人都有權限可以直接有權限接觸DB，透過，將封裝檔案透過SSMS佈署或是更新是比較適宜的。所以，當我們設計好的資料庫專案，就可以透過編譯方式產生封裝檔案，若是中間有語法錯誤或是物件不對，就會發生編譯失敗問題。使用SSMS只要選擇佈署精靈就可以很快的佈署完畢了。先選擇要佈署的檔案，和要產生資料庫的名稱&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-F3qElv7PEZI/V1rVGezpbLI/AAAAAAAAILE/geAxbW8Hshw/I/14655702731341.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;這邊可以看到要佈署的封裝檔案的版本。&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/--rNHP-dU3TQ/V1rVGqlbCQI/AAAAAAAAILM/1G0ycx5vVfI/I/14655702868133.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;若是第一次進行封裝佈署，基本上只要不斷按下一步就可以。而若是在開發專案中有遇到資料庫更新部分，也可以透過封裝檔案進行&lt;/p&gt;
+&lt;p&gt;把某一個資料表的ID設定為識別碼&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-HpGp5pQm7k8/V1rVGxoSQkI/AAAAAAAAILU/M-x02knb6pE/I/14655703231666.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;並且把封裝版本號修改一下&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-yd-mQrpfgGU/V1rVHDIsYYI/AAAAAAAAILY/O8OoHROYU-4/I/14655703487523.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後，透過SSMS的更新資料應用程式，進行資料庫物件的更新&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-eILCkQJUp5k/V1rVHd1EcII/AAAAAAAAILg/8CSSSognktM/I/14655703586893.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;當然，還是需要選擇新版本的封裝檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-zrX0qSZPgC0/V1rVHkKsvbI/AAAAAAAAILo/qFaD0upct2Q/I/14655703675847.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;基本上若是資料庫的資料表內有資料，都會跳出警告訊息，這部分主要是告知這些異動會動到資料表，有可能會有資料表內的資料遺失風險&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-Ex-yoBFduOw/V1rVIwStDaI/AAAAAAAAILw/5MepHIRlkmg/I/14655703869214.png&quot; width=&quot;400&quot;&gt;&lt;br&gt;下圖也是進行相同的提示，這邊若是不須勾選確認會資料遺失的按鈕，就無法繼續下一步了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-h7JrdeQ0TV8/V1rVJQGDvyI/AAAAAAAAIL4/MBW_KkFFoAk/I/14655703962665.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;按完之後就等他進行更新了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-SIDTUBfZwgQ/V1rVJhyf1fI/AAAAAAAAIMA/6NIk_g_wBAc/I/14655704046740.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;更新完畢後，就可以看到ID已經被設定成識別碼了。&lt;/p&gt;
+&lt;p&gt;以上透過這樣方式就可以佈署資料庫，同時也可以將資料庫設計納入版控中。但是，個人覺得在第一次進行資料庫佈署時候，透過封裝檔案方式進行佈署，算是非常方便的，且相關機制都可以透過Visual Studio進行管控與紀錄。若是，當我們有針對資料庫內資料表或是相關程式更新時候，尤其是資料表部分，還是建議乖乖去資料表內透過手動或是寫好Script方式進行更新資料表以免真的有資料遺失。雖然，可以備份資料，但是，若是資料表內資料非常的多時候，有時候遺失那些資料還真的找不出來，又要做資料比對又很花時間與精神，而針對原本預存程序或是檢視表的更新，就可以透過封裝檔案進行&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就
+    
+    </summary>
+    
+      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Linq的Join / right Join / Left Join</title>
     <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/</id>
@@ -185,43 +304,6 @@
   </entry>
   
   <entry>
-    <title>開始進行資料庫程式的版控和佈署</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T15:00:52.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就不會去做版控。針對這一部份，大都採用傳統方式，用複製的動作進行版控，久而久之就會開始遺失或是缺東缺西。早期要做資料庫物件版控其實也不容易，畢竟，DB是透過Script運作。自從VisualStudio有資料庫專案後，再加上資料庫更新與建制，可以透過.dacpac封裝方式進行部署與差異化更新，因此，要把資料庫納入版控就相對簡單許多。因此，可以開始嘗試使用DB資料庫專案進行開發&lt;/p&gt;
-&lt;p&gt;首先，在Visual Studio內找到SQL Server專案範本，透過這專案範本就可以建立資料庫專案了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-vfVKS97Jigc/V1rVBejSjQI/AAAAAAAAIK0/BMu90hbStfc/I/14655699882460.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;開啟資料庫專案後，就跟開發程式一樣簡單了，可以透過新增項目去開發資料庫的物件。若是，針對舊有的資料庫進行版控，就必須將資料庫匯入資料庫專案中，這樣後續才有辦法產生.dacpac檔案，設計完畢後，就可以透過Visual Stduio進行發行資料庫或是透過SSMS進行佈署。&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-_HTa-ksKXIc/V1rVBsMwRdI/AAAAAAAAIK8/87hPvnu7yOo/I/14655701901877.jpg&quot; width=&quot;500&quot;&gt;
-&lt;p&gt;個人還是喜歡透過SSMS進行操作，畢竟，實務上這一段不一定是開發人員佈署或是一般人都有權限可以直接有權限接觸DB，透過，將封裝檔案透過SSMS佈署或是更新是比較適宜的。所以，當我們設計好的資料庫專案，就可以透過編譯方式產生封裝檔案，若是中間有語法錯誤或是物件不對，就會發生編譯失敗問題。使用SSMS只要選擇佈署精靈就可以很快的佈署完畢了。先選擇要佈署的檔案，和要產生資料庫的名稱&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-F3qElv7PEZI/V1rVGezpbLI/AAAAAAAAILE/geAxbW8Hshw/I/14655702731341.jpg&quot; width=&quot;500&quot;&gt;
-&lt;p&gt;這邊可以看到要佈署的封裝檔案的版本。&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/--rNHP-dU3TQ/V1rVGqlbCQI/AAAAAAAAILM/1G0ycx5vVfI/I/14655702868133.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;若是第一次進行封裝佈署，基本上只要不斷按下一步就可以。而若是在開發專案中有遇到資料庫更新部分，也可以透過封裝檔案進行&lt;/p&gt;
-&lt;p&gt;把某一個資料表的ID設定為識別碼&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-HpGp5pQm7k8/V1rVGxoSQkI/AAAAAAAAILU/M-x02knb6pE/I/14655703231666.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;並且把封裝版本號修改一下&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-yd-mQrpfgGU/V1rVHDIsYYI/AAAAAAAAILY/O8OoHROYU-4/I/14655703487523.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後，透過SSMS的更新資料應用程式，進行資料庫物件的更新&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-eILCkQJUp5k/V1rVHd1EcII/AAAAAAAAILg/8CSSSognktM/I/14655703586893.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;當然，還是需要選擇新版本的封裝檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-zrX0qSZPgC0/V1rVHkKsvbI/AAAAAAAAILo/qFaD0upct2Q/I/14655703675847.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;基本上若是資料庫的資料表內有資料，都會跳出警告訊息，這部分主要是告知這些異動會動到資料表，有可能會有資料表內的資料遺失風險&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-Ex-yoBFduOw/V1rVIwStDaI/AAAAAAAAILw/5MepHIRlkmg/I/14655703869214.png&quot; width=&quot;400&quot;&gt;&lt;br&gt;下圖也是進行相同的提示，這邊若是不須勾選確認會資料遺失的按鈕，就無法繼續下一步了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-h7JrdeQ0TV8/V1rVJQGDvyI/AAAAAAAAIL4/MBW_KkFFoAk/I/14655703962665.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;按完之後就等他進行更新了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-SIDTUBfZwgQ/V1rVJhyf1fI/AAAAAAAAIMA/6NIk_g_wBAc/I/14655704046740.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;更新完畢後，就可以看到ID已經被設定成識別碼了。&lt;/p&gt;
-&lt;p&gt;以上透過這樣方式就可以佈署資料庫，同時也可以將資料庫設計納入版控中。但是，個人覺得在第一次進行資料庫佈署時候，透過封裝檔案方式進行佈署，算是非常方便的，且相關機制都可以透過Visual Studio進行管控與紀錄。若是，當我們有針對資料庫內資料表或是相關程式更新時候，尤其是資料表部分，還是建議乖乖去資料表內透過手動或是寫好Script方式進行更新資料表以免真的有資料遺失。雖然，可以備份資料，但是，若是資料表內資料非常的多時候，有時候遺失那些資料還真的找不出來，又要做資料比對又很花時間與精神，而針對原本預存程序或是檢視表的更新，就可以透過封裝檔案進行&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就
-    
-    </summary>
-    
-      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
-    
-    
-      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用Visual Studio佈署DB，自動化填入資料</title>
     <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
@@ -253,39 +335,6 @@
     </summary>
     
       <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
-    
-    
-      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法)</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T14:42:16.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt;方式。在T-SQL中可以用&lt;code&gt;Convert&lt;/code&gt;或是&lt;code&gt;Cast&lt;/code&gt;，但是，每次用&lt;code&gt;Convert&lt;/code&gt;時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用&lt;code&gt;Cast&lt;/code&gt;方式，可以轉換成下列幾種格式&lt;img src=&quot;/blogimage/14654843567486.png&quot;&gt;
-  分別執行結果如下:&lt;img src=&quot;/blogimage/14654843760616.png&quot;&gt;&lt;/li&gt;
-&lt;li&gt;用&lt;code&gt;Convert&lt;/code&gt;方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar,getdate(),填入center style)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/blogimage/14654844510401.png&quot;&gt;
-&lt;hr&gt;
-&lt;h6 id=&quot;簡碼對照表&quot;&gt;&lt;a href=&quot;#簡碼對照表&quot; class=&quot;headerlink&quot; title=&quot;簡碼對照表&quot;&gt;&lt;/a&gt;簡碼對照表&lt;/h6&gt;&lt;img src=&quot;/blogimage/14654844687499.png&quot;&gt;
-&lt;p&gt;不過，在這簡碼中，若是要轉換成&lt;strong&gt;年月日時分&lt;/strong&gt;，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar(16),getdate(),120)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;
-    
-    </summary>
     
     
       <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>

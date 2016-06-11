@@ -3,29 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法 | E.K 2.0</title>
+    <title>管理Azure Resources內的Resources Group、 | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="C#" />
+        <meta name="keywords" content="Azure" />
     
-    <meta name="description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
+    <meta name="description" content="之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。
+在Azure的Resources Group設計中，是讓我們很容易去管理Azure服務。因此，對於初期架構設計的一些『錯誤">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/index.html">
+<meta property="og:title" content="管理Azure Resources內的Resources Group、">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:30:37.000Z">
+<meta property="og:description" content="之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。
+在Azure的Resources Group設計中，是讓我們很容易去管理Azure服務。因此，對於初期架構設計的一些『錯誤">
+<meta property="og:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<meta property="og:updated_time" content="2016-06-11T12:22:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta name="twitter:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+<meta name="twitter:title" content="管理Azure Resources內的Resources Group、">
+<meta name="twitter:description" content="之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。
+在Azure的Resources Group設計中，是讓我們很容易去管理Azure服務。因此，對於初期架構設計的一些『錯誤">
+<meta name="twitter:image" content="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
     
 
     
@@ -152,35 +149,56 @@ ga('send', 'pageview');
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Net/2016-06-10-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Azure/2016-06-11" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        C# 使用For和Foreach讀取Datatable每筆資料對照寫法
+        管理Azure Resources內的Resources Group、
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/Net/2016-06-10-1/" class="article-date">
-    <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
+            <a href="/paper/2016/06/11/Azure/2016-06-11/" class="article-date">
+    <time datetime="2016-06-11T14:59:31.000Z" itemprop="datePublished">2016-06-11</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Azure/">Azure</a></li></ul>
 
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<p>早期各種程式語法針對迴圈寫法，總是用<code>for</code>來實作，這東西真是好用且還歷久不衰，不過，到了開始有<code>Foreach</code>之後，很多迴圈寫法都會改用<code>Foreach</code>實作，畢竟，<code>Foreach</code>算是好物之一。但是，因為長時間習慣用<code>for</code>語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記</p>
-<ol>
-<li>採用<code>For</code>迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; _dt.Rows.Count; i++)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (strReportID != _dt.Rows[i][&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if (i != 0)</span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);          </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        strReportID = _dt.Rows[i][&quot;s&quot;].ToString();</span><br><span class="line">        dr[&quot;ss&quot;] = _dt.Rows[i][&quot;ss&quot;].ToString();     </span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure>
+            <img src="http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png">
+<p>之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。</p>
+<p>在Azure的Resources Group設計中，是讓我們很容易去管理Azure服務。因此，對於初期架構設計的一些『錯誤』或是業務的變更，後面還是必須想辦法去彌補或是去更新，才不會等到最後架構變大，服務變多了，要管理起來也就更不方便</p>
+<p>例如：業務A的Web App和SQL Database分散在不同Resources Group，我們定義一個名叫A Resources Group，把分散在各地屬於A服務的資源放在一起，要怎樣做呢？<br><img src="https://lh3.googleusercontent.com/-IJWWyWFAap8/V1wByMbh_DI/AAAAAAAAINY/957vj2YTikA/I/14656282262063.png" width="400"></p>
+<h3 id="Move-SQL-Database"><a href="#Move-SQL-Database" class="headerlink" title="Move SQL Database"></a>Move SQL Database</h3><ol>
+<li><p>首先，把SQL Database搬到新的Resources Group，這部分可以在新的Azure Portal 去做搬遷，記住搬遷SQL Database，一定要連同SQL Database Server一起搬遷，不能只有把Database進行轉移，所以，在SQL Server選擇『Move』就可以開始進行轉移</p>
+<img src="https://lh3.googleusercontent.com/-7SnuTa-SCb4/V1wByIi_s7I/AAAAAAAAINg/NMceGHkBD-c/I/14656283183292.png" width="500">
+</li>
+<li><p>選擇要遷入的Resource Group名稱，按下確定之後，就可以進行搬遷囉，在搬遷時候，服務會停止一下，不過，時間不確定要多長，以目前這個SQL Database Size比較小，在30秒內就可以完成搬遷</p>
+<img src="https://lh3.googleusercontent.com/-N4EqjFgJGGs/V1wBylGIhII/AAAAAAAAINo/QJAibz4bxoY/I/14656284086698.png" width="300">
 </li>
 </ol>
-<p>2.用<code>Foreach</code>寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">bool bFirst = false;</span><br><span class="line">foreach (DataRow od in _dt.Rows)</span><br><span class="line">&#123;                </span><br><span class="line">    if (strReportID != od[&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if(!bFirst)</span><br><span class="line">       </span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);                </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line">            bFirst = true;</span><br><span class="line">        &#125;</span><br><span class="line">        strReportID = od[&quot;s&quot;].ToString();   </span><br><span class="line">        dr[&quot;ss&quot;] = od[&quot;ss&quot;].ToString();</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;               </span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Storage-Move"><a href="#Storage-Move" class="headerlink" title="Storage Move"></a>Storage Move</h3><ol>
+<li><p>搬遷Storage，搬遷Storage步驟就多一點點，選擇storage的<strong>屬性</strong></p>
+<img src="https://lh3.googleusercontent.com/-7AloEQ8zckk/V1wBy7YbHSI/AAAAAAAAINw/F-Y3SiwQgD8/I/14656285281213.png" width="300">
+</li>
+<li><p>往下滑動，就可以找到Resource Group，在這邊就可以變換Resource Group</p>
+<img src="https://lh3.googleusercontent.com/--zDQCYw_ORk/V1wBzGRIqKI/AAAAAAAAIN4/n7miBMb9Up4/I/14656285767948.png" width="300">
+</li>
+<li><p>選擇要搬遷的Storage，就可以開始進行搬遷了</p>
+<img src="https://lh3.googleusercontent.com/-fjTFJ1HRvGM/V1wBzUOnnkI/AAAAAAAAIOA/3lMaIDxQUtk/I/14656285957649.png" width="300">
+</li>
+</ol>
+<h3 id="Web-App-Move"><a href="#Web-App-Move" class="headerlink" title="Web App Move"></a>Web App Move</h3><p>移動App Servie方式也跟移動Storage一樣，到屬性的地方去修改要移動到的Resource Group，就可以把資源給轉移了，不過，這邊有一個陷阱，就是你在轉移Web App，記得所屬的App Service Plan也要一併轉移，不然到時候會無法把原本的Web App去轉移到其他的App Service Plan。這樣會出現Service Plan橫跨不同Resource Group的錯誤。</p>
+<p>此外，在Web App轉移上，目前有一個限制，就是如果在一個Resource Group裡面有多個App Service Plan，就無法做移轉的動作，換句話說想要做移轉，必須確保Resource Group內只有一個App Service Plan才行，如下圖，這樣是無法進行移轉的<br><img src="https://lh3.googleusercontent.com/-nQbDZUo2y3g/V1wBzm-3E6I/AAAAAAAAIOI/c7mjR3cWUYY/I/14656474514457.png" width="300"></p>
+<p>如果還是強行移轉，在Portal是看不到錯誤資訊，只是不會有動作，如果用PowerShell去跑，就會出現下面錯誤，這一點要注意的</p>
+<img src="https://lh3.googleusercontent.com/-bSzxIK87pGE/V1wBzy0BthI/AAAAAAAAIOQ/AV3hU5eRHPg/I/14656474982854.png" width="300">
+<p>如果不想透過Portal去做轉移，也可以使用PowerShell去控制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$webapp = Get-AzureRmResource -ResourceGroupName OldResourceGroupName -ResourceName ResourceName</span><br><span class="line">$plan = Get-AzureRmResource -ResourceGroupName OldResourceGroupName -ResourceName ResourceName</span><br><span class="line">Move-AzureRmResource -DestinationResourceGroupName NewResourceGroupName -ResourceId $webapp.ResourceId, $plan.ResourceId</span><br></pre></td></tr></table></figure></p>
 
         </div>
         <footer class="article-footer">
@@ -301,20 +319,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/SQL/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            T-SQL 時間欄位的格式化(用Convert / Cast作法)
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/paper/2016/06/10/Net/2016-06-10-2/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/10/App/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">C# 無條件進位,無條件捨去及四捨五入寫法</p>
+        <p class="article-nav-title">在MAC中的Visual Studio Code編譯ionic的Cordova專案</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -533,7 +541,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/';
     
     (function() {
     var dsq = document.createElement('script');

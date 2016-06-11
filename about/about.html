@@ -3,29 +3,46 @@
 <head>
     <meta charset="utf-8">
     
-    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法 | E.K 2.0</title>
+    <title>Edward Kuo | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="C#" />
-    
-    <meta name="description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
+    <meta name="description" content="架構不是設計出來，是迭代出來的
 
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/index.html">
+喜愛跨界研究各種技術，探討如何從需求面進行全面性的架構設計，小有研究製造業的供應鏈管理與流程改善。目前，偏向研究產品在互聯網的創新，社群媒體的運營以及服務設計，歡迎大家一起來交流，另一個Blog
+現職
+
+某全球知名品牌公司 資訊主管
+好朋友工坊 資訊顧問
+財團法人福榮融合教育推廣基金會 資訊義工
+雲林科技大學工業工程與管理系課程 委員
+Study4.TW 講師">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Edward Kuo">
+<meta property="og:url" content="http://edwardkuo.github.io/about/about.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
+<meta property="og:description" content="架構不是設計出來，是迭代出來的
 
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:30:37.000Z">
+喜愛跨界研究各種技術，探討如何從需求面進行全面性的架構設計，小有研究製造業的供應鏈管理與流程改善。目前，偏向研究產品在互聯網的創新，社群媒體的運營以及服務設計，歡迎大家一起來交流，另一個Blog
+現職
+
+某全球知名品牌公司 資訊主管
+好朋友工坊 資訊顧問
+財團法人福榮融合教育推廣基金會 資訊義工
+雲林科技大學工業工程與管理系課程 委員
+Study4.TW 講師">
+<meta property="og:updated_time" content="2016-06-10T16:15:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta name="twitter:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
+<meta name="twitter:title" content="Edward Kuo">
+<meta name="twitter:description" content="架構不是設計出來，是迭代出來的
 
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+喜愛跨界研究各種技術，探討如何從需求面進行全面性的架構設計，小有研究製造業的供應鏈管理與流程改善。目前，偏向研究產品在互聯網的創新，社群媒體的運營以及服務設計，歡迎大家一起來交流，另一個Blog
+現職
+
+某全球知名品牌公司 資訊主管
+好朋友工坊 資訊顧問
+財團法人福榮融合教育推廣基金會 資訊義工
+雲林科技大學工業工程與管理系課程 委員
+Study4.TW 講師">
     
 
     
@@ -148,39 +165,59 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    uncategorized
+    <em class="page-title-link" data-url="/about/about.html">Edward Kuo</em>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Net/2016-06-10-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="about-undefined" class="article article-single article-type-about" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        C# 使用For和Foreach讀取Datatable每筆資料對照寫法
+        Edward Kuo
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/Net/2016-06-10-1/" class="article-date">
-    <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
+            <a href="/about/about.html" class="article-date">
+    <time datetime="2016-06-10T16:15:04.000Z" itemprop="datePublished">2016-06-11</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
-
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<p>早期各種程式語法針對迴圈寫法，總是用<code>for</code>來實作，這東西真是好用且還歷久不衰，不過，到了開始有<code>Foreach</code>之後，很多迴圈寫法都會改用<code>Foreach</code>實作，畢竟，<code>Foreach</code>算是好物之一。但是，因為長時間習慣用<code>for</code>語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記</p>
-<ol>
-<li>採用<code>For</code>迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; _dt.Rows.Count; i++)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (strReportID != _dt.Rows[i][&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if (i != 0)</span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);          </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        strReportID = _dt.Rows[i][&quot;s&quot;].ToString();</span><br><span class="line">        dr[&quot;ss&quot;] = _dt.Rows[i][&quot;ss&quot;].ToString();     </span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>2.用<code>Foreach</code>寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">bool bFirst = false;</span><br><span class="line">foreach (DataRow od in _dt.Rows)</span><br><span class="line">&#123;                </span><br><span class="line">    if (strReportID != od[&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if(!bFirst)</span><br><span class="line">       </span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);                </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line">            bFirst = true;</span><br><span class="line">        &#125;</span><br><span class="line">        strReportID = od[&quot;s&quot;].ToString();   </span><br><span class="line">        dr[&quot;ss&quot;] = od[&quot;ss&quot;].ToString();</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;               </span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>架構不是設計出來，是迭代出來的</p>
+</blockquote>
+<p>喜愛跨界研究各種技術，探討如何從需求面進行全面性的架構設計，小有研究製造業的供應鏈管理與流程改善。目前，偏向研究產品在互聯網的創新，社群媒體的運營以及服務設計，歡迎大家一起來交流，另一個<strong><a href="https://dotblogs.com.tw/jaigi" target="_blank" rel="external">Blog</a></strong></p>
+<h3 id="現職"><a href="#現職" class="headerlink" title="現職"></a>現職</h3><hr>
+<ul>
+<li>某全球知名品牌公司 資訊主管</li>
+<li><a href="http://www.cstpt.tw" target="_blank" rel="external">好朋友工坊 資訊顧問</a></li>
+<li><a href="http://www.inclusion.tw" target="_blank" rel="external">財團法人福榮融合教育推廣基金會 資訊義工</a></li>
+<li><a href="http://www.iem.yuntech.edu.tw" target="_blank" rel="external">雲林科技大學工業工程與管理系課程 委員</a></li>
+<li><a href="https://www.facebook.com/Study4.tw/" target="_blank" rel="external">Study4.TW 講師</a></li>
+</ul>
+<h3 id="獎項"><a href="#獎項" class="headerlink" title="獎項"></a>獎項</h3><hr>
+<ul>
+<li>Microsoft® MVP</li>
+<li>MVP 社群活動突出貢獻獎</li>
+<li>Certified Scrum Developer</li>
+<li>Certified Scrum Master</li>
+<li>Certified Product Owner</li>
+</ul>
+<h3 id="擔任講者"><a href="#擔任講者" class="headerlink" title="擔任講者"></a>擔任講者</h3><hr>
+<ul>
+<li>Global Windows Azure Bootcamp</li>
+<li>Microsoft Community Rising Star appraise</li>
+<li>中國第十屆五金工業設計大賽 評委</li>
+<li>國立東華大學 全球供應鏈管理講師</li>
+<li>漢翔航空工業 全球生產排程規劃講師</li>
+<li>雲林科技大學 全球供應鏈管理暨生產排程規劃講師<br>…</li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -297,29 +334,6 @@ ga('send', 'pageview');
             
         </ul>
     </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/paper/2016/06/10/SQL/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            T-SQL 時間欄位的格式化(用Convert / Cast作法)
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/paper/2016/06/10/Net/2016-06-10-2/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">C# 無條件進位,無條件捨去及四捨五入寫法</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
     
     <div class="widgets-container">
         
@@ -533,7 +547,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/';
+    var disqus_url = 'http://edwardkuo.github.io/about/about.html';
     
     (function() {
     var dsq = document.createElement('script');
