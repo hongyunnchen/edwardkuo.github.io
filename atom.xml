@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://edwardkuo.github.io/"/>
-  <updated>2016-06-11T15:02:44.000Z</updated>
+  <updated>2016-06-11T12:24:57.000Z</updated>
   <id>http://edwardkuo.github.io/</id>
   
   <author>
@@ -14,44 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>用C#做查詢,建立及刪除檔案目錄功能</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-1/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-1/</id>
-    <published>2016-06-11T14:59:31.000Z</published>
-    <updated>2016-06-11T15:02:44.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;常常會用到對作業系統進行建立資料夾或是刪除資料動作，所謂，程式寫完超過三個月就會忘記，真的是一點都沒錯。為了避免每次自己都還要去查一下MSDN來做回憶。這邊把一些相關基礎做法做一個筆記，日後也可以比較容易查閱&lt;/p&gt;
-&lt;p&gt;首先需要加入這個&lt;code&gt;using System.IO&lt;/code&gt;Namespace&lt;/p&gt;
-&lt;h4 id=&quot;判斷目錄是否存在&quot;&gt;&lt;a href=&quot;#判斷目錄是否存在&quot; class=&quot;headerlink&quot; title=&quot;判斷目錄是否存在&quot;&gt;&lt;/a&gt;判斷目錄是否存在&lt;/h4&gt;&lt;p&gt;可以使用&lt;code&gt;DirectoryInfo&lt;/code&gt;這個Class進行處理。這案例是我們判斷在C槽下是否有存在Temp目錄，用&lt;code&gt;exists&lt;/code&gt;屬性來判斷，路徑的表示法C#與VB有所不同，請自行查閱。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;DirectoryInfo : 公開建立、移動和全面列舉目錄和子目錄的執行個體 (Instance) 方法&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if (DIFO.Exists)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(&amp;quot;Exist&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(&amp;quot;No Exist&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在C槽已經存在Temp目錄所以或出現Exist，其中路徑無論是寫 @”C:\temp\” 或是 @”C:\temp” 其結果都是相同的&lt;/p&gt;
-&lt;h4 id=&quot;建立目錄&quot;&gt;&lt;a href=&quot;#建立目錄&quot; class=&quot;headerlink&quot; title=&quot;建立目錄&quot;&gt;&lt;/a&gt;建立目錄&lt;/h4&gt;&lt;p&gt;使用&lt;code&gt;Create&lt;/code&gt;的方法來建立，若是該目錄已經存在則不會有所動作&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Create();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;若是我們要在該目錄下，不斷建立該目錄的子目錄，不需要重複寫上面那一段Code然後把路徑置換，只需要使用&lt;code&gt;CreateSubdirectory&lt;/code&gt;方法就可以&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo ss = DIFO.CreateSubdirectory(&amp;quot;GG&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo sq = ss.CreateSubdirectory(&amp;quot;FF&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;這樣就可以在test1目錄下面建立GG目錄，在GG目錄下建立FF目錄了 &lt;/p&gt;
-&lt;h4 id=&quot;刪除目錄&quot;&gt;&lt;a href=&quot;#刪除目錄&quot; class=&quot;headerlink&quot; title=&quot;刪除目錄&quot;&gt;&lt;/a&gt;刪除目錄&lt;/h4&gt;&lt;p&gt;使用&lt;code&gt;Delete&lt;/code&gt;的方法來刪除&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Delete();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;不過，這邊有一個重點，若是該目錄不是空的，執行這樣語法會出現錯誤，早期的作法可能需要將資料目錄先清空再去刪除，不過，現在已經不需要這樣麻煩，只需要在&lt;code&gt;Delete&lt;/code&gt;中傳入，是否要一併刪除該資料內所有檔案或是目錄就可以，True是表示要刪除該資料夾下所有資料，False則反之。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Delete(true);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;補充一下，取得該資料夾所有檔案的方式，藉由&lt;code&gt;FileInfo&lt;/code&gt;取檔案名稱&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;foreach (FileInfo di in DIFO.GetFiles())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(di.FullName);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;若是找到目錄就移除該目錄，並重新建立目錄方式&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if (DIFO.Exists)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    DIFO.Delete(true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    DIFO.Create();               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
-&lt;p&gt;常常會用到對作業系統進行建立資料夾或是刪除資料動作，所謂，程式寫完超過三個
-    
-    </summary>
-    
-    
-      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
-    
-  </entry>
   
   <entry>
     <title>管理Azure Resources內的Resources Group</title>
@@ -99,6 +61,44 @@
     
     
       <category term="Azure" scheme="http://edwardkuo.github.io/tags/Azure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用C#做查詢,建立及刪除檔案目錄功能</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/11/Net/2016-06-11-1/</id>
+    <published>2016-06-11T14:59:31.000Z</published>
+    <updated>2016-06-11T15:02:44.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;常常會用到對作業系統進行建立資料夾或是刪除資料動作，所謂，程式寫完超過三個月就會忘記，真的是一點都沒錯。為了避免每次自己都還要去查一下MSDN來做回憶。這邊把一些相關基礎做法做一個筆記，日後也可以比較容易查閱&lt;/p&gt;
+&lt;p&gt;首先需要加入這個&lt;code&gt;using System.IO&lt;/code&gt;Namespace&lt;/p&gt;
+&lt;h4 id=&quot;判斷目錄是否存在&quot;&gt;&lt;a href=&quot;#判斷目錄是否存在&quot; class=&quot;headerlink&quot; title=&quot;判斷目錄是否存在&quot;&gt;&lt;/a&gt;判斷目錄是否存在&lt;/h4&gt;&lt;p&gt;可以使用&lt;code&gt;DirectoryInfo&lt;/code&gt;這個Class進行處理。這案例是我們判斷在C槽下是否有存在Temp目錄，用&lt;code&gt;exists&lt;/code&gt;屬性來判斷，路徑的表示法C#與VB有所不同，請自行查閱。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DirectoryInfo : 公開建立、移動和全面列舉目錄和子目錄的執行個體 (Instance) 方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if (DIFO.Exists)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(&amp;quot;Exist&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(&amp;quot;No Exist&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在C槽已經存在Temp目錄所以或出現Exist，其中路徑無論是寫 @”C:\temp\” 或是 @”C:\temp” 其結果都是相同的&lt;/p&gt;
+&lt;h4 id=&quot;建立目錄&quot;&gt;&lt;a href=&quot;#建立目錄&quot; class=&quot;headerlink&quot; title=&quot;建立目錄&quot;&gt;&lt;/a&gt;建立目錄&lt;/h4&gt;&lt;p&gt;使用&lt;code&gt;Create&lt;/code&gt;的方法來建立，若是該目錄已經存在則不會有所動作&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Create();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;若是我們要在該目錄下，不斷建立該目錄的子目錄，不需要重複寫上面那一段Code然後把路徑置換，只需要使用&lt;code&gt;CreateSubdirectory&lt;/code&gt;方法就可以&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo ss = DIFO.CreateSubdirectory(&amp;quot;GG&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo sq = ss.CreateSubdirectory(&amp;quot;FF&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;這樣就可以在test1目錄下面建立GG目錄，在GG目錄下建立FF目錄了 &lt;/p&gt;
+&lt;h4 id=&quot;刪除目錄&quot;&gt;&lt;a href=&quot;#刪除目錄&quot; class=&quot;headerlink&quot; title=&quot;刪除目錄&quot;&gt;&lt;/a&gt;刪除目錄&lt;/h4&gt;&lt;p&gt;使用&lt;code&gt;Delete&lt;/code&gt;的方法來刪除&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Delete();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;不過，這邊有一個重點，若是該目錄不是空的，執行這樣語法會出現錯誤，早期的作法可能需要將資料目錄先清空再去刪除，不過，現在已經不需要這樣麻煩，只需要在&lt;code&gt;Delete&lt;/code&gt;中傳入，是否要一併刪除該資料內所有檔案或是目錄就可以，True是表示要刪除該資料夾下所有資料，False則反之。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\test1\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DIFO.Delete(true);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;補充一下，取得該資料夾所有檔案的方式，藉由&lt;code&gt;FileInfo&lt;/code&gt;取檔案名稱&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;foreach (FileInfo di in DIFO.GetFiles())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Console.WriteLine(di.FullName);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;若是找到目錄就移除該目錄，並重新建立目錄方式&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;string strFolderPath = @&amp;quot;C:\temp\&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DirectoryInfo DIFO = new DirectoryInfo(strFolderPath); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if (DIFO.Exists)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    DIFO.Delete(true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    DIFO.Create();               &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg&quot;&gt;
+&lt;p&gt;常常會用到對作業系統進行建立資料夾或是刪除資料動作，所謂，程式寫完超過三個
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://edwardkuo.github.io/tags/C/"/>
     
   </entry>
   
@@ -284,6 +284,77 @@
   </entry>
   
   <entry>
+    <title>使用Visual Studio佈署DB，自動化填入資料</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T15:17:26.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
+&lt;p&gt;一開始做法跟&lt;strong&gt;&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;&lt;/strong&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;其他的.sql檔案，就可以用一般的SQL Script去產生出來&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Scrip
+    
+    </summary>
+    
+      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法)</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/</id>
+    <published>2016-06-10T14:59:31.000Z</published>
+    <updated>2016-06-10T14:42:16.000Z</updated>
+    
+    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt;方式。在T-SQL中可以用&lt;code&gt;Convert&lt;/code&gt;或是&lt;code&gt;Cast&lt;/code&gt;，但是，每次用&lt;code&gt;Convert&lt;/code&gt;時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用&lt;code&gt;Cast&lt;/code&gt;方式，可以轉換成下列幾種格式&lt;img src=&quot;/blogimage/14654843567486.png&quot;&gt;
+  分別執行結果如下:&lt;img src=&quot;/blogimage/14654843760616.png&quot;&gt;&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;Convert&lt;/code&gt;方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar,getdate(),填入center style)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;/blogimage/14654844510401.png&quot;&gt;
+&lt;hr&gt;
+&lt;h6 id=&quot;簡碼對照表&quot;&gt;&lt;a href=&quot;#簡碼對照表&quot; class=&quot;headerlink&quot; title=&quot;簡碼對照表&quot;&gt;&lt;/a&gt;簡碼對照表&lt;/h6&gt;&lt;img src=&quot;/blogimage/14654844687499.png&quot;&gt;
+&lt;p&gt;不過，在這簡碼中，若是要轉換成&lt;strong&gt;年月日時分&lt;/strong&gt;，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar(16),getdate(),120)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
+&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;
+    
+    </summary>
+    
+    
+      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用Linq的Join / right Join / Left Join</title>
     <link href="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/</id>
@@ -368,77 +439,6 @@
     </summary>
     
       <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
-    
-    
-      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Visual Studio佈署DB，自動化填入資料</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T15:17:26.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
-&lt;p&gt;一開始做法跟&lt;strong&gt;&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;&lt;/strong&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;其他的.sql檔案，就可以用一般的SQL Script去產生出來&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Scrip
-    
-    </summary>
-    
-      <category term="資料庫程式版控" scheme="http://edwardkuo.github.io/categories/%E8%B3%87%E6%96%99%E5%BA%AB%E7%A8%8B%E5%BC%8F%E7%89%88%E6%8E%A7/"/>
-    
-    
-      <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法)</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/</id>
-    <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T14:42:16.000Z</updated>
-    
-    <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;yyyy-MM-dd&amp;quot;)&lt;/code&gt;方式。在T-SQL中可以用&lt;code&gt;Convert&lt;/code&gt;或是&lt;code&gt;Cast&lt;/code&gt;，但是，每次用&lt;code&gt;Convert&lt;/code&gt;時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用&lt;code&gt;Cast&lt;/code&gt;方式，可以轉換成下列幾種格式&lt;img src=&quot;/blogimage/14654843567486.png&quot;&gt;
-  分別執行結果如下:&lt;img src=&quot;/blogimage/14654843760616.png&quot;&gt;&lt;/li&gt;
-&lt;li&gt;用&lt;code&gt;Convert&lt;/code&gt;方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar,getdate(),填入center style)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/blogimage/14654844510401.png&quot;&gt;
-&lt;hr&gt;
-&lt;h6 id=&quot;簡碼對照表&quot;&gt;&lt;a href=&quot;#簡碼對照表&quot; class=&quot;headerlink&quot; title=&quot;簡碼對照表&quot;&gt;&lt;/a&gt;簡碼對照表&lt;/h6&gt;&lt;img src=&quot;/blogimage/14654844687499.png&quot;&gt;
-&lt;p&gt;不過，在這簡碼中，若是要轉換成&lt;strong&gt;年月日時分&lt;/strong&gt;，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select convert(varchar(16),getdate(),120)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用&lt;code&gt;tostring(&amp;quot;
-    
-    </summary>
     
     
       <category term="T-SQL" scheme="http://edwardkuo.github.io/tags/T-SQL/"/>

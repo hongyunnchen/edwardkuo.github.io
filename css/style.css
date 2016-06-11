@@ -337,7 +337,7 @@ code {
   clear: both;
 }
 #header {
-  background: #26272b;
+  background-image: url("/img/head.jpg");
   padding-bottom: 60px;
   position: relative;
 }
