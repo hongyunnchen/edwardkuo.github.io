@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://edwardkuo.github.io/"/>
-  <updated>2016-06-11T12:22:30.000Z</updated>
+  <updated>2016-06-11T12:24:57.000Z</updated>
   <id>http://edwardkuo.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>管理Azure Resources內的Resources Group、</title>
+    <title>管理Azure Resources內的Resources Group</title>
     <link href="http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/"/>
     <id>http://edwardkuo.github.io/paper/2016/06/11/Azure/2016-06-11/</id>
     <published>2016-06-11T14:59:31.000Z</published>
-    <updated>2016-06-11T12:22:30.000Z</updated>
+    <updated>2016-06-11T12:24:57.000Z</updated>
     
     <content type="html">&lt;img src=&quot;http://edumuch.com/wp-content/uploads/2016/01/fe0cb49c-fc42-487f-8e68-e247b4278174_orig.png&quot;&gt;
 &lt;p&gt;之前在Azure開一些服務時候，它會自動配置一個Resources Group給你，又或是一開始在規劃架構時候，我們都會自行會設定一些Resources Group，但是久了之後，可能因為業務需求變動下，導致在Azure的服務被分得很零散，要管理起來就不是很方便或是很直覺。&lt;/p&gt;
@@ -213,32 +213,33 @@
   </entry>
   
   <entry>
-    <title>開始進行資料庫程式的版控和佈署</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
+    <title>使用Visual Studio佈署DB，自動化填入資料</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
     <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T15:00:52.000Z</updated>
+    <updated>2016-06-10T15:17:26.000Z</updated>
     
     <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就不會去做版控。針對這一部份，大都採用傳統方式，用複製的動作進行版控，久而久之就會開始遺失或是缺東缺西。早期要做資料庫物件版控其實也不容易，畢竟，DB是透過Script運作。自從VisualStudio有資料庫專案後，再加上資料庫更新與建制，可以透過.dacpac封裝方式進行部署與差異化更新，因此，要把資料庫納入版控就相對簡單許多。因此，可以開始嘗試使用DB資料庫專案進行開發&lt;/p&gt;
-&lt;p&gt;首先，在Visual Studio內找到SQL Server專案範本，透過這專案範本就可以建立資料庫專案了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-vfVKS97Jigc/V1rVBejSjQI/AAAAAAAAIK0/BMu90hbStfc/I/14655699882460.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;開啟資料庫專案後，就跟開發程式一樣簡單了，可以透過新增項目去開發資料庫的物件。若是，針對舊有的資料庫進行版控，就必須將資料庫匯入資料庫專案中，這樣後續才有辦法產生.dacpac檔案，設計完畢後，就可以透過Visual Stduio進行發行資料庫或是透過SSMS進行佈署。&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-_HTa-ksKXIc/V1rVBsMwRdI/AAAAAAAAIK8/87hPvnu7yOo/I/14655701901877.jpg&quot; width=&quot;500&quot;&gt;
-&lt;p&gt;個人還是喜歡透過SSMS進行操作，畢竟，實務上這一段不一定是開發人員佈署或是一般人都有權限可以直接有權限接觸DB，透過，將封裝檔案透過SSMS佈署或是更新是比較適宜的。所以，當我們設計好的資料庫專案，就可以透過編譯方式產生封裝檔案，若是中間有語法錯誤或是物件不對，就會發生編譯失敗問題。使用SSMS只要選擇佈署精靈就可以很快的佈署完畢了。先選擇要佈署的檔案，和要產生資料庫的名稱&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-F3qElv7PEZI/V1rVGezpbLI/AAAAAAAAILE/geAxbW8Hshw/I/14655702731341.jpg&quot; width=&quot;500&quot;&gt;
-&lt;p&gt;這邊可以看到要佈署的封裝檔案的版本。&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/--rNHP-dU3TQ/V1rVGqlbCQI/AAAAAAAAILM/1G0ycx5vVfI/I/14655702868133.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;若是第一次進行封裝佈署，基本上只要不斷按下一步就可以。而若是在開發專案中有遇到資料庫更新部分，也可以透過封裝檔案進行&lt;/p&gt;
-&lt;p&gt;把某一個資料表的ID設定為識別碼&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-HpGp5pQm7k8/V1rVGxoSQkI/AAAAAAAAILU/M-x02knb6pE/I/14655703231666.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;並且把封裝版本號修改一下&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-yd-mQrpfgGU/V1rVHDIsYYI/AAAAAAAAILY/O8OoHROYU-4/I/14655703487523.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後，透過SSMS的更新資料應用程式，進行資料庫物件的更新&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-eILCkQJUp5k/V1rVHd1EcII/AAAAAAAAILg/8CSSSognktM/I/14655703586893.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;當然，還是需要選擇新版本的封裝檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-zrX0qSZPgC0/V1rVHkKsvbI/AAAAAAAAILo/qFaD0upct2Q/I/14655703675847.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;基本上若是資料庫的資料表內有資料，都會跳出警告訊息，這部分主要是告知這些異動會動到資料表，有可能會有資料表內的資料遺失風險&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-Ex-yoBFduOw/V1rVIwStDaI/AAAAAAAAILw/5MepHIRlkmg/I/14655703869214.png&quot; width=&quot;400&quot;&gt;&lt;br&gt;下圖也是進行相同的提示，這邊若是不須勾選確認會資料遺失的按鈕，就無法繼續下一步了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-h7JrdeQ0TV8/V1rVJQGDvyI/AAAAAAAAIL4/MBW_KkFFoAk/I/14655703962665.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
-&lt;p&gt;按完之後就等他進行更新了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-SIDTUBfZwgQ/V1rVJhyf1fI/AAAAAAAAIMA/6NIk_g_wBAc/I/14655704046740.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;更新完畢後，就可以看到ID已經被設定成識別碼了。&lt;/p&gt;
-&lt;p&gt;以上透過這樣方式就可以佈署資料庫，同時也可以將資料庫設計納入版控中。但是，個人覺得在第一次進行資料庫佈署時候，透過封裝檔案方式進行佈署，算是非常方便的，且相關機制都可以透過Visual Studio進行管控與紀錄。若是，當我們有針對資料庫內資料表或是相關程式更新時候，尤其是資料表部分，還是建議乖乖去資料表內透過手動或是寫好Script方式進行更新資料表以免真的有資料遺失。雖然，可以備份資料，但是，若是資料表內資料非常的多時候，有時候遺失那些資料還真的找不出來，又要做資料比對又很花時間與精神，而針對原本預存程序或是檢視表的更新，就可以透過封裝檔案進行&lt;/p&gt;
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
+&lt;p&gt;一開始做法跟&lt;strong&gt;&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;&lt;/strong&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png&quot; width=&quot;500&quot;&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;其他的.sql檔案，就可以用一般的SQL Script去產生出來&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔&lt;/p&gt;
 </content>
     
     <summary type="html">
     
       &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就
+&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Scrip
     
     </summary>
     
@@ -304,33 +305,32 @@
   </entry>
   
   <entry>
-    <title>使用Visual Studio佈署DB，自動化填入資料</title>
-    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/"/>
-    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-2/</id>
+    <title>開始進行資料庫程式的版控和佈署</title>
+    <link href="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/"/>
+    <id>http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/</id>
     <published>2016-06-10T14:59:31.000Z</published>
-    <updated>2016-06-10T15:17:26.000Z</updated>
+    <updated>2016-06-10T15:00:52.000Z</updated>
     
     <content type="html">&lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Script，等資料庫建立完畢後，再去執行這些Script放入資料，不過，若是透過透過Visual Studio資料庫專案，則可以將這部分一併做到自動化，也就是說當資料庫建立完成後，資料也一併填入資料表，這樣不僅可以在開發階段去定義要填入的資料，也可以避免資料表有異動時候，要填入資料的script沒有做變更，造成資料無法填入。&lt;/p&gt;
-&lt;p&gt;一開始做法跟&lt;strong&gt;&lt;a href=&quot;http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10-1/&quot;&gt;開始進行資料庫程式的版控和佈署&lt;/a&gt;&lt;/strong&gt;這篇教學是相同的，後面，我們只要在做放入要自動化SQL Script就可以&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;首先我們要加入指令碼，通常這指令碼就是SQL Script&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-Ka_Wa_reYaU/V1rY5E1becI/AAAAAAAAIMM/Izgj99OFQd8/I/14655713555496.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;選擇佈署後指令碼，其目的在於是當資料庫佈署完畢後才會執行，若是有些東西需要在佈署前先做，就選擇預先佈署指令碼就可以&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-pl7ep3vXtOU/V1rY5ZrYwZI/AAAAAAAAIMU/zKLKqG_T4CU/I/14655713692778.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;新增完畢後的檔案內容如下，這邊只要去填入自己要塞入DB資料的Script就可以。&lt;/p&gt;
-&lt;img src=&quot;https://lh3.googleusercontent.com/-S-sIIeRWxuQ/V1rY5ooaQoI/AAAAAAAAIMc/D65zcJe4kiY/I/14655714384155.png&quot; width=&quot;500&quot;&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;以上幾個簡單步驟就可以做到自動化填入資料囉。不過，運用上還需要一些小技巧，以目前手邊案例來說，因為資料有時候，有先後順序且在團隊分工上，要做到分工去完成一些填資料動作，若是都在一個檔案中去實作，要管理起來是非常麻煩的。所以，運用上我會把這檔案當作運作塞資料的主流程，然後在這檔案中用SQLCMD去執行每個要Insert Data的 Script檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-sXz53N7x0fE/V1rY51OBuRI/AAAAAAAAIMk/Rg05nZa1oJ4/I/14655714810978.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;其他的.sql檔案，就可以用一般的SQL Script去產生出來&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-xn9fOKC8ti4/V1rY6IKwSvI/AAAAAAAAIMo/8kot8X9dL7s/I/14655714923287.png&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後再去定義我們要塞入資料的順序，甚至在測試時候，我們也可以放入一些測試資料的Script，等正式上線再移除這些測試的Script，這樣在管理上就方便多了完成之後，進行發布就可以了。若是你的資料有相依或是唯一性，在重複佈署時候可能會有發生資料問題，這邊只要在佈署時候選擇重新建立資料庫就可以。不過，這部分要仔細確認後再作業避免後悔&lt;/p&gt;
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就不會去做版控。針對這一部份，大都採用傳統方式，用複製的動作進行版控，久而久之就會開始遺失或是缺東缺西。早期要做資料庫物件版控其實也不容易，畢竟，DB是透過Script運作。自從VisualStudio有資料庫專案後，再加上資料庫更新與建制，可以透過.dacpac封裝方式進行部署與差異化更新，因此，要把資料庫納入版控就相對簡單許多。因此，可以開始嘗試使用DB資料庫專案進行開發&lt;/p&gt;
+&lt;p&gt;首先，在Visual Studio內找到SQL Server專案範本，透過這專案範本就可以建立資料庫專案了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-vfVKS97Jigc/V1rVBejSjQI/AAAAAAAAIK0/BMu90hbStfc/I/14655699882460.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;開啟資料庫專案後，就跟開發程式一樣簡單了，可以透過新增項目去開發資料庫的物件。若是，針對舊有的資料庫進行版控，就必須將資料庫匯入資料庫專案中，這樣後續才有辦法產生.dacpac檔案，設計完畢後，就可以透過Visual Stduio進行發行資料庫或是透過SSMS進行佈署。&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-_HTa-ksKXIc/V1rVBsMwRdI/AAAAAAAAIK8/87hPvnu7yOo/I/14655701901877.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;個人還是喜歡透過SSMS進行操作，畢竟，實務上這一段不一定是開發人員佈署或是一般人都有權限可以直接有權限接觸DB，透過，將封裝檔案透過SSMS佈署或是更新是比較適宜的。所以，當我們設計好的資料庫專案，就可以透過編譯方式產生封裝檔案，若是中間有語法錯誤或是物件不對，就會發生編譯失敗問題。使用SSMS只要選擇佈署精靈就可以很快的佈署完畢了。先選擇要佈署的檔案，和要產生資料庫的名稱&lt;/p&gt;
+&lt;img src=&quot;https://lh3.googleusercontent.com/-F3qElv7PEZI/V1rVGezpbLI/AAAAAAAAILE/geAxbW8Hshw/I/14655702731341.jpg&quot; width=&quot;500&quot;&gt;
+&lt;p&gt;這邊可以看到要佈署的封裝檔案的版本。&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/--rNHP-dU3TQ/V1rVGqlbCQI/AAAAAAAAILM/1G0ycx5vVfI/I/14655702868133.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;若是第一次進行封裝佈署，基本上只要不斷按下一步就可以。而若是在開發專案中有遇到資料庫更新部分，也可以透過封裝檔案進行&lt;/p&gt;
+&lt;p&gt;把某一個資料表的ID設定為識別碼&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-HpGp5pQm7k8/V1rVGxoSQkI/AAAAAAAAILU/M-x02knb6pE/I/14655703231666.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;並且把封裝版本號修改一下&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-yd-mQrpfgGU/V1rVHDIsYYI/AAAAAAAAILY/O8OoHROYU-4/I/14655703487523.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;然後，透過SSMS的更新資料應用程式，進行資料庫物件的更新&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-eILCkQJUp5k/V1rVHd1EcII/AAAAAAAAILg/8CSSSognktM/I/14655703586893.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;當然，還是需要選擇新版本的封裝檔案&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-zrX0qSZPgC0/V1rVHkKsvbI/AAAAAAAAILo/qFaD0upct2Q/I/14655703675847.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;基本上若是資料庫的資料表內有資料，都會跳出警告訊息，這部分主要是告知這些異動會動到資料表，有可能會有資料表內的資料遺失風險&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-Ex-yoBFduOw/V1rVIwStDaI/AAAAAAAAILw/5MepHIRlkmg/I/14655703869214.png&quot; width=&quot;400&quot;&gt;&lt;br&gt;下圖也是進行相同的提示，這邊若是不須勾選確認會資料遺失的按鈕，就無法繼續下一步了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-h7JrdeQ0TV8/V1rVJQGDvyI/AAAAAAAAIL4/MBW_KkFFoAk/I/14655703962665.jpg&quot; width=&quot;500&quot;&gt;&lt;/p&gt;
+&lt;p&gt;按完之後就等他進行更新了&lt;br&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/-SIDTUBfZwgQ/V1rVJhyf1fI/AAAAAAAAIMA/6NIk_g_wBAc/I/14655704046740.jpg&quot; width=&quot;500&quot;&gt;&lt;br&gt;更新完畢後，就可以看到ID已經被設定成識別碼了。&lt;/p&gt;
+&lt;p&gt;以上透過這樣方式就可以佈署資料庫，同時也可以將資料庫設計納入版控中。但是，個人覺得在第一次進行資料庫佈署時候，透過封裝檔案方式進行佈署，算是非常方便的，且相關機制都可以透過Visual Studio進行管控與紀錄。若是，當我們有針對資料庫內資料表或是相關程式更新時候，尤其是資料表部分，還是建議乖乖去資料表內透過手動或是寫好Script方式進行更新資料表以免真的有資料遺失。雖然，可以備份資料，但是，若是資料表內資料非常的多時候，有時候遺失那些資料還真的找不出來，又要做資料比對又很花時間與精神，而針對原本預存程序或是檢視表的更新，就可以透過封裝檔案進行&lt;/p&gt;
 </content>
     
     <summary type="html">
     
       &lt;img src=&quot;http://www.srcinc.com/images/eha-headers-databases.jpg&quot;&gt;
-&lt;p&gt;在一些實際案例上，往往佈署資料庫後，無論是要進行資料庫測試，或是要在資料表放入一些初始設定值或是初始化資料，就是先準備初始化資料的Scrip
+&lt;p&gt;在程式開發上，大家都知道要對程式碼進行版控的動作，但是，對於DB的&lt;strong&gt;Table Schema&lt;/strong&gt;或是資料庫物件就
     
     </summary>
     
