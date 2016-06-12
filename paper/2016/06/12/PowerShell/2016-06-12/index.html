@@ -3,35 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>T-SQL 時間欄位的格式化(用Convert / Cast作法) | E.K 2.0</title>
+    <title>使用Powershell指令呼叫 Web API | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="T-SQL" />
+        <meta name="keywords" content="PowerShell" />
     
-    <meta name="description" content="用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用tostring(&amp;quot;yyyy-MM-dd&amp;quot;)方式。在T-SQL中可以用Convert或是Cast，但是，每次用Convert時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。
-
-用Cast方式，可以轉換成下列幾種格式
-  分別執行結果如下:
-用C">
+    <meta name="description" content="Azure Web Site有了Web Job之後，這功能還真的非常好用，以前每次做排程，大都喜歡去用SSIS，主要透過SSIS執行Job會有一些紀錄可以看，現在Web Job也有這樣功能，雖然，目前上面不能掛載SSIS，但是，能做得東西也夠多，除了使用Console程式外，也能用PowerShell來開發唷，做一個簡單的使用PowerShell去驅動Web Api範例12$url =&amp;quot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="T-SQL 時間欄位的格式化(用Convert / Cast作法)">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/index.html">
+<meta property="og:title" content="使用Powershell指令呼叫 Web API">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/12/PowerShell/2016-06-12/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用tostring(&amp;quot;yyyy-MM-dd&amp;quot;)方式。在T-SQL中可以用Convert或是Cast，但是，每次用Convert時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。
-
-用Cast方式，可以轉換成下列幾種格式
-  分別執行結果如下:
-用C">
-<meta property="og:image" content="http://www.srcinc.com/images/eha-headers-databases.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:42:16.000Z">
+<meta property="og:description" content="Azure Web Site有了Web Job之後，這功能還真的非常好用，以前每次做排程，大都喜歡去用SSIS，主要透過SSIS執行Job會有一些紀錄可以看，現在Web Job也有這樣功能，雖然，目前上面不能掛載SSIS，但是，能做得東西也夠多，除了使用Console程式外，也能用PowerShell來開發唷，做一個簡單的使用PowerShell去驅動Web Api範例12$url =&amp;quot">
+<meta property="og:image" content="http://www.askme4tech.com/sites/default/files/powershell-cim.jpg">
+<meta property="og:updated_time" content="2016-06-12T04:45:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="T-SQL 時間欄位的格式化(用Convert / Cast作法)">
-<meta name="twitter:description" content="用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用tostring(&amp;quot;yyyy-MM-dd&amp;quot;)方式。在T-SQL中可以用Convert或是Cast，但是，每次用Convert時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。
-
-用Cast方式，可以轉換成下列幾種格式
-  分別執行結果如下:
-用C">
-<meta name="twitter:image" content="http://www.srcinc.com/images/eha-headers-databases.jpg">
+<meta name="twitter:title" content="使用Powershell指令呼叫 Web API">
+<meta name="twitter:description" content="Azure Web Site有了Web Job之後，這功能還真的非常好用，以前每次做排程，大都喜歡去用SSIS，主要透過SSIS執行Job會有一些紀錄可以看，現在Web Job也有這樣功能，雖然，目前上面不能掛載SSIS，但是，能做得東西也夠多，除了使用Console程式外，也能用PowerShell來開發唷，做一個簡單的使用PowerShell去驅動Web Api範例12$url =&amp;quot">
+<meta name="twitter:image" content="http://www.askme4tech.com/sites/default/files/powershell-cim.jpg">
     
 
     
@@ -158,40 +146,31 @@ ga('send', 'pageview');
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-SQL/2016-06-10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-PowerShell/2016-06-12" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        T-SQL 時間欄位的格式化(用Convert / Cast作法)
+        使用Powershell指令呼叫 Web API
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/SQL/2016-06-10/" class="article-date">
-    <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
+            <a href="/paper/2016/06/12/PowerShell/2016-06-12/" class="article-date">
+    <time datetime="2016-06-12T04:59:31.000Z" itemprop="datePublished">2016-06-12</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/T-SQL/">T-SQL</a></li></ul>
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PowerShell/">PowerShell</a></li></ul>
 
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://www.srcinc.com/images/eha-headers-databases.jpg">
-<p>用T-SQL要把資料的時間輸出想要的格式是很常見的需求，例如:年月日時分秒或是年月日，在C#可以用<code>tostring(&quot;yyyy-MM-dd&quot;)</code>方式。在T-SQL中可以用<code>Convert</code>或是<code>Cast</code>，但是，每次用<code>Convert</code>時候，都還要去記住格式化的代碼有點難，這邊整理一些相關資訊，供大家參考也給自己記憶。</p>
-<ul>
-<li>用<code>Cast</code>方式，可以轉換成下列幾種格式<img src="/blogimage/14654843567486.png">
-  分別執行結果如下:<img src="/blogimage/14654843760616.png"></li>
-<li>用<code>Convert</code>方式，將時間欄位轉成varchar，並搭配style方式，轉換成自己要的時間格式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select convert(varchar,getdate(),填入center style)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<img src="/blogimage/14654844510401.png">
-<hr>
-<h6 id="簡碼對照表"><a href="#簡碼對照表" class="headerlink" title="簡碼對照表"></a>簡碼對照表</h6><img src="/blogimage/14654844687499.png">
-<p>不過，在這簡碼中，若是要轉換成<strong>年月日時分</strong>，似乎沒有這樣的格式可以用，要達到此需求，可以定義varchar長度來解決<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select convert(varchar(16),getdate(),120)</span><br></pre></td></tr></table></figure></p>
+            <img src="http://www.askme4tech.com/sites/default/files/powershell-cim.jpg">
+<p>Azure Web Site有了Web Job之後，這功能還真的非常好用，以前每次做排程，大都喜歡去用SSIS，主要透過SSIS執行Job會有一些紀錄可以看，現在Web Job也有這樣功能，雖然，目前上面不能掛載SSIS，但是，能做得東西也夠多，除了使用Console程式外，也能用PowerShell來開發唷，做一個簡單的使用PowerShell去驅動Web Api範例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$url =&quot;http://XXXX.azurewebsites.net/api/AAAA</span><br><span class="line">Invoke-RestMethod -Uri $url  -Method Post</span><br></pre></td></tr></table></figure></p>
+<p>其中，主要就是透過<code>Invoke-RestMethod</code>驅動，這個指令可以透過Http或Https去呼叫Restful Web Service</p>
 
         </div>
         <footer class="article-footer">
@@ -312,20 +291,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/SQL/2016-06-10-2/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            使用Visual Studio佈署DB，自動化填入資料
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/paper/2016/06/09/Web/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/12/Web/2016-06-12/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">ASP.NET 強制設定開啟或是關閉相容性檢視</p>
+        <p class="article-nav-title">使用Ajax.BeginForm在Controller做頁面跳轉</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -544,7 +513,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/SQL/2016-06-10/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/12/PowerShell/2016-06-12/';
     
     (function() {
     var dsq = document.createElement('script');
