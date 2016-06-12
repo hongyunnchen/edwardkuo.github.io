@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>http://edwardkuo.github.io/paper/2016/06/12/Web/2016-06-12/</loc>
+        <lastmod>2016-06-12T04:35:54.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/</loc>
+        <lastmod>2016-06-12T04:29:45.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://edwardkuo.github.io/paper/2016/06/01/Net/2016-06-11-2/</loc>
         <lastmod>2016-06-11T16:01:01.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -105,14 +121,6 @@
     <url>
         <loc>http://edwardkuo.github.io/paper/2016/06/09/Web/2016-06-10/</loc>
         <lastmod>2016-06-10T14:29:52.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10/</loc>
-        <lastmod>2016-06-10T14:28:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

@@ -3,29 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>C# 使用For和Foreach讀取Datatable每筆資料對照寫法 | E.K 2.0</title>
+    <title>使用Ajax.BeginForm在Controller做頁面跳轉 | E.K 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="C#" />
+        <meta name="keywords" content="ASP.NET" />
     
-    <meta name="description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
+    <meta name="description" content="在MVC做Ajax功能是滿常見，不過，有一點需要注意的地方，在於Controller要進行頁面跳轉會下return RedirectToAction(XXXX)就可以轉到我們所需要的頁面，不過，若是今天狀況是這樣
+view1234567@using (Ajax.BeginForm(&amp;quot;Login&amp;quot;, &amp;quot;XXX&amp;quot;, new AjaxOptions &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/index.html">
+<meta property="og:title" content="使用Ajax.BeginForm在Controller做頁面跳轉">
+<meta property="og:url" content="http://edwardkuo.github.io/paper/2016/06/12/Web/2016-06-12/index.html">
 <meta property="og:site_name" content="E.K 2.0">
-<meta property="og:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta property="og:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<meta property="og:updated_time" content="2016-06-10T14:30:37.000Z">
+<meta property="og:description" content="在MVC做Ajax功能是滿常見，不過，有一點需要注意的地方，在於Controller要進行頁面跳轉會下return RedirectToAction(XXXX)就可以轉到我們所需要的頁面，不過，若是今天狀況是這樣
+view1234567@using (Ajax.BeginForm(&amp;quot;Login&amp;quot;, &amp;quot;XXX&amp;quot;, new AjaxOptions &amp;#123;">
+<meta property="og:image" content="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
+<meta property="og:updated_time" content="2016-06-12T04:35:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C# 使用For和Foreach讀取Datatable每筆資料對照寫法">
-<meta name="twitter:description" content="早期各種程式語法針對迴圈寫法，總是用for來實作，這東西真是好用且還歷久不衰，不過，到了開始有Foreach之後，很多迴圈寫法都會改用Foreach實作，畢竟，Foreach算是好物之一。但是，因為長時間習慣用for語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記
-
-採用For迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式1234567891011121">
-<meta name="twitter:image" content="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
+<meta name="twitter:title" content="使用Ajax.BeginForm在Controller做頁面跳轉">
+<meta name="twitter:description" content="在MVC做Ajax功能是滿常見，不過，有一點需要注意的地方，在於Controller要進行頁面跳轉會下return RedirectToAction(XXXX)就可以轉到我們所需要的頁面，不過，若是今天狀況是這樣
+view1234567@using (Ajax.BeginForm(&amp;quot;Login&amp;quot;, &amp;quot;XXX&amp;quot;, new AjaxOptions &amp;#123;">
+<meta name="twitter:image" content="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
     
 
     
@@ -152,35 +149,34 @@ ga('send', 'pageview');
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-Net/2016-06-10-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Web/2016-06-12" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        C# 使用For和Foreach讀取Datatable每筆資料對照寫法
+        使用Ajax.BeginForm在Controller做頁面跳轉
         </h1>
     
 
             </header>
         
         <div class="article-subtitle">
-            <a href="/paper/2016/06/10/Net/2016-06-10-1/" class="article-date">
-    <time datetime="2016-06-10T14:59:31.000Z" itemprop="datePublished">2016-06-10</time>
+            <a href="/paper/2016/06/12/Web/2016-06-12/" class="article-date">
+    <time datetime="2016-06-12T04:59:31.000Z" itemprop="datePublished">2016-06-12</time>
 </a>
             
-    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
+    <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-NET/">ASP.NET</a></li></ul>
 
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <img src="http://trtpost-wpengine.netdna-ssl.com/files/2014/06/shutterstock_173668979-680x400.jpg">
-<p>早期各種程式語法針對迴圈寫法，總是用<code>for</code>來實作，這東西真是好用且還歷久不衰，不過，到了開始有<code>Foreach</code>之後，很多迴圈寫法都會改用<code>Foreach</code>實作，畢竟，<code>Foreach</code>算是好物之一。但是，因為長時間習慣用<code>for</code>語法，要一時改變還真不簡單，所以，趁現在趕快紀錄一下避免忘記</p>
-<ol>
-<li>採用<code>For</code>迴圈方式讀Datatable，其中邏輯是要判斷不是第一筆要處理的相關邏輯程式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; _dt.Rows.Count; i++)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (strReportID != _dt.Rows[i][&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if (i != 0)</span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);          </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        strReportID = _dt.Rows[i][&quot;s&quot;].ToString();</span><br><span class="line">        dr[&quot;ss&quot;] = _dt.Rows[i][&quot;ss&quot;].ToString();     </span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(_dt.Rows[i][&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>2.用<code>Foreach</code>寫法後，原本判斷是否為第一筆的邏輯，就要改用boolen方式去判斷。且原本是 _dt.Rows[i]的方式就可以省略，改用Datarow物件代替<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">bool bFirst = false;</span><br><span class="line">foreach (DataRow od in _dt.Rows)</span><br><span class="line">&#123;                </span><br><span class="line">    if (strReportID != od[&quot;s&quot;].ToString())</span><br><span class="line">    &#123;</span><br><span class="line">        if(!bFirst)</span><br><span class="line">       </span><br><span class="line">        &#123;</span><br><span class="line">            dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">            dt.Rows.Add(dr);                </span><br><span class="line">            sb = new StringBuilder();</span><br><span class="line">            dr = dt.NewRow();</span><br><span class="line">            bFirst = true;</span><br><span class="line">        &#125;</span><br><span class="line">        strReportID = od[&quot;s&quot;].ToString();   </span><br><span class="line">        dr[&quot;ss&quot;] = od[&quot;ss&quot;].ToString();</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        sb.Append(od[&quot;Name&quot;] + &quot;&lt;br /&gt;&quot;);</span><br><span class="line">    &#125;               </span><br><span class="line">&#125;</span><br><span class="line">dr[&quot;R&quot;] = sb.ToString();</span><br><span class="line">dt.Rows.Add(dr);</span><br></pre></td></tr></table></figure></p>
+            <img src="http://moztw.org/events/code-rush/images/ani-code-rush.gif">
+<p>在MVC做Ajax功能是滿常見，不過，有一點需要注意的地方，在於Controller要進行頁面跳轉會下<strong>return RedirectToAction(XXXX)</strong>就可以轉到我們所需要的頁面，不過，若是今天狀況是這樣</p>
+<h6 id="view"><a href="#view" class="headerlink" title="view"></a>view</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@using (Ajax.BeginForm(&quot;Login&quot;, &quot;XXX&quot;, new AjaxOptions </span><br><span class="line">&#123; UpdateTargetId = &quot;ErrorMessage&quot; &#125;))</span><br><span class="line">&#123;</span><br><span class="line">  .......</span><br><span class="line">   &lt;input type=&quot;submit&quot; class=&quot;button button-green </span><br><span class="line">   contactSubmitButton&quot; value=&quot;Sign On&quot; /&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h6><p>使用RedirectToAction(XXXX)就會發生頁面卡住的現象，因此，在Controller中必須修改成這樣<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return Json(new &#123; url = Url.Action(&quot;Main&quot;, &quot;Main&quot;) &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>而在View需增加javascript去控制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var onSuccess = function (result) &#123;</span><br><span class="line">        if (result.url) &#123;</span><br><span class="line">            window.location.href = result.url;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>再把<code>Ajax.BeginForm</code>增加一個成功後的觸發事件<code>OnSuccess</code>就可以進行頁面跳轉了</p>
 
         </div>
         <footer class="article-footer">
@@ -301,20 +297,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/paper/2016/06/10/App/2016-06-10/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            在MAC中的Visual Studio Code編譯ionic的Cordova專案
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/paper/2016/06/10/Net/2016-06-10/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/paper/2016/06/11/Net/2016-06-11-1/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">使用Linq的Join / right Join / Left Join</p>
+        <p class="article-nav-title">用C#做查詢,建立及刪除檔案目錄功能</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -533,7 +519,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'ek20';
     
     
-    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/10/Net/2016-06-10-1/';
+    var disqus_url = 'http://edwardkuo.github.io/paper/2016/06/12/Web/2016-06-12/';
     
     (function() {
     var dsq = document.createElement('script');
